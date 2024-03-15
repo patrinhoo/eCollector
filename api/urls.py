@@ -1,7 +1,13 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+
 from . import views
 
+
+router = routers.DefaultRouter()
+router.register(r'cards', views.CardViewSet, basename="cards")
+
 urlpatterns = [
-    path('hello', views.Hello.as_view())
+    path('', include(router.urls)),
 ]

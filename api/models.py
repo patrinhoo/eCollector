@@ -79,6 +79,8 @@ class Card(models.Model):
 
     nr_of_pulses = models.IntegerField(choices=NrOfPulses)
     price = models.DecimalField(max_digits=8, decimal_places=2)
+    # cena zakupu
+    # wartość
     production_date = models.DateField()
     expiration_date = models.DateField()
     series = models.CharField(max_length=64)
@@ -142,7 +144,6 @@ class Card(models.Model):
 
     chip_type = models.CharField(max_length=32, choices=ChipTypes)
 
-    # TODO: wyjaśnić
     # sim_cardtype_number = models.CharField(max_length=32)
     # sim_cardtype_image = models.ImageField(upload_to=recipe_image_file_path)
     # sim_damage_number = models.CharField(max_length=32)
@@ -157,3 +158,8 @@ class Card(models.Model):
 
     status = models.CharField(max_length=32, choices=Status)
     comment = models.CharField(max_length=512)
+
+
+
+    def __str__(self):
+        return f'{self.name} - {self.catalog_number}'
