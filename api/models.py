@@ -4,6 +4,7 @@ Database models.
 import uuid
 import os
 
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -58,6 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Card(models.Model):
     """Phone card."""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     catalog_number = models.CharField(max_length=128)
     name = models.CharField(max_length=64)
     awers = models.ImageField(upload_to=recipe_image_file_path)
