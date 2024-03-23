@@ -4,6 +4,8 @@ from rest_framework.settings import api_settings
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
+
 from . import models
 from . import serializers
 
@@ -27,6 +29,14 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
         return self.request.user
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(name='sortField', description='Type sort field', type=str),
+            OpenApiParameter(name='sortOrder', description='Type sort order (ascend/descend)', type=str),
+        ]
+    )
+)
 class CardViewSet(viewsets.ModelViewSet):
     queryset = models.Card.objects.all()
     authentication_classes = [TokenAuthentication]
@@ -44,8 +54,10 @@ class CardViewSet(viewsets.ModelViewSet):
                 sort_field = '-' + sort_field
 
             queryset = queryset.order_by(sort_field)
+        else:
+            queryset = queryset.order_by('-id')
         
-        return queryset.filter(user=self.request.user).order_by('-id').distinct()
+        return queryset.filter(user=self.request.user).distinct()
 
     def get_serializer_class(self):
         if self.action == 'list':
