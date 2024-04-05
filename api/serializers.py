@@ -60,7 +60,7 @@ class AuthTokenSerializer(serializers.Serializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Card
-        fields = '__all__'
+        exclude = ['user']
 
 
 class CardListSerializer(serializers.ModelSerializer):
