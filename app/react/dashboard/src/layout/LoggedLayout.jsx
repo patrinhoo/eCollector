@@ -9,6 +9,8 @@ import { Dashboard } from '../routes/Dashboard';
 import { CardCreate } from '../routes/CardCreate';
 import { CardShow } from '../routes/CardShow';
 import { CardEdit } from '../routes/CardEdit';
+import { MyAccount } from '../routes/MyAccount';
+import { ChangePassword } from '../routes/ChangePassword';
 
 const { Content } = Layout;
 
@@ -25,6 +27,8 @@ export const LoggedLayout = () => {
           <Route path='/cards/create' element={<CardCreate />} />
           <Route path='/cards/:cardId/show' element={<CardShow />} />
           <Route path='/cards/:cardId/edit' element={<CardEdit />} />
+          <Route path='/myAccount' element={<MyAccount />} />
+          <Route path='/changePassword' element={<ChangePassword />} />
 
           <Route exact path='/' element={<Navigate to={'/login'} replace />} />
           <Route exact path='*' element={<Navigate to={'/404'} replace />} />
