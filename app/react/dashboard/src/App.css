@@ -18,6 +18,15 @@
   background-color: rgba(22, 119, 255, 0.8);
 }
 
+.ant-btn-danger {
+  background-color: #ff2c2c;
+  color: #ffffff;
+}
+
+.ant-btn-danger:hover {
+  background-color: #f94449;
+}
+
 @media only screen and (min-width: 640px) {
   .form-actions {
     width: calc(100% - 200px);
