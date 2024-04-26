@@ -16,3 +16,7 @@ venv/
 
 # Local PostgreSQL data
 data/
+
+/app/react/dashboard/node_modules/
+/app/react/dashboard/build/
+/app/react/static/

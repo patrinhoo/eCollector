@@ -1,0 +1,26 @@
+.form-actions {
+  width: 100%;
+  left: 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ant-upload,
+.ant-upload-list-item-container {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+.ant-btn-primary {
+  background-color: #1677ff;
+}
+
+.ant-btn-primary:hover {
+  background-color: rgba(22, 119, 255, 0.8);
+}
+
+@media only screen and (min-width: 640px) {
+  .form-actions {
+    width: calc(100% - 200px);
+    left: 200px;
+  }
+}
