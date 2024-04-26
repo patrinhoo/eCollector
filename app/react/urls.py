@@ -1,10 +1,8 @@
-from django.urls import path
+from django.urls import re_path
 
 from . import views
 
 
 urlpatterns = [
-    path('', views.ReactView.as_view(), name='react'),
-    path('login', views.ReactView.as_view(), name='login'),
-    path('register', views.ReactView.as_view(), name='register'),
+    re_path(r'^(?!api|admin).*', views.ReactView.as_view(), name='react'),
 ]
