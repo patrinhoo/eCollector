@@ -6,6 +6,8 @@ COPY ./requirements.txt /requirements.txt
 COPY ./app /app
 COPY ./scripts /scripts
 
+RUN apk add --virtual .react-deps nodejs npm
+
 WORKDIR /app
 EXPOSE 8000
 
@@ -22,6 +24,13 @@ RUN python -m venv /py && \
     chown -R app:app /vol && \
     chmod -R 755 /vol && \
     chmod -R +x /scripts
+
+WORKDIR /app/react/dashboard
+
+RUN npm install
+RUN npm run build
+
+WORKDIR /app
 
 ENV PATH="/scripts:/py/bin:$PATH"
 

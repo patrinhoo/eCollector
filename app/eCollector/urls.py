@@ -18,6 +18,7 @@ urlpatterns = [
         name='api-docs',
     ),
     path('api/', include('api.urls')),
+    path('', include('react.urls')),
 ] 
 
 if settings.DEBUG:
