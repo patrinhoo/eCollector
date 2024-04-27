@@ -11,6 +11,7 @@ import { CardShow } from '../routes/CardShow';
 import { CardEdit } from '../routes/CardEdit';
 import { MyAccount } from '../routes/MyAccount';
 import { ChangePassword } from '../routes/ChangePassword';
+import { Settings } from '../routes/Settings';
 
 const { Content } = Layout;
 
@@ -29,6 +30,7 @@ export const LoggedLayout = () => {
           <Route path='/cards/:cardId/edit' element={<CardEdit />} />
           <Route path='/myAccount' element={<MyAccount />} />
           <Route path='/changePassword' element={<ChangePassword />} />
+          <Route path='/settings' element={<Settings />} />
 
           <Route exact path='/' element={<Navigate to={'/login'} replace />} />
           <Route exact path='*' element={<Navigate to={'/404'} replace />} />

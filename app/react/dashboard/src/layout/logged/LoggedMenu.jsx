@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
-import { ToolOutlined, TableOutlined } from '@ant-design/icons';
+import { ToolOutlined, TableOutlined, CameraOutlined } from '@ant-design/icons';
 
 import { Logo } from '../../common/icons/Logo';
 import { MenuItem } from './MenuItem';
@@ -23,6 +23,11 @@ export const LoggedMenu = () => {
         title={'Moje karty'}
         url={'/dashboard'}
         icon={<TableOutlined />}
+      />
+      <MenuItem
+        title={'Oczekujące'}
+        url={'/pendingCards'}
+        icon={<CameraOutlined />}
       />
       <MenuItem
         title={'Ustawienia'}
