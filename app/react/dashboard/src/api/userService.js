@@ -6,7 +6,7 @@ export const userService = {};
 userService.getUserData = () => {
   const { headers } = getAuthHeaders();
 
-  const url = `api/user/me`;
+  const url = `/api/user/me`;
 
   return new Promise((resolve, reject) => {
     axios({
@@ -29,7 +29,7 @@ userService.getUserData = () => {
 userService.update = (data) => {
   const { headers } = getAuthHeaders();
 
-  const url = `api/user/me`;
+  const url = `/api/user/me`;
 
   return new Promise((resolve, reject) => {
     axios({

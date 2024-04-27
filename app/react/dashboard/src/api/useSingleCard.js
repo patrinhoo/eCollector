@@ -3,7 +3,7 @@ import { useApi } from '../hooks/useApi';
 
 export const useSingleCard = (id) => {
   const { isLoading, isError, data } = useApi({
-    url: `api/cards/${id}/`,
+    url: `/api/cards/${id}/`,
   });
 
   return useMemo(

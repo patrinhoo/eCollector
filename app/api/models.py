@@ -52,6 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+    fields_to_show_on_list = models.JSONField(default=dict())
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -161,6 +163,7 @@ class Card(models.Model):
     status = models.CharField(max_length=32, choices=Status)
     comment = models.CharField(max_length=512)
 
+    additional_attributes = models.JSONField(default=dict())
 
 
     def __str__(self):
