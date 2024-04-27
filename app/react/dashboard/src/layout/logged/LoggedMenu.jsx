@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
-import { SearchOutlined, TableOutlined } from '@ant-design/icons';
+import { ToolOutlined, TableOutlined } from '@ant-design/icons';
 
 import { Logo } from '../../common/icons/Logo';
 import { MenuItem } from './MenuItem';
@@ -25,9 +25,9 @@ export const LoggedMenu = () => {
         icon={<TableOutlined />}
       />
       <MenuItem
-        title={'Szukaj kart'}
-        url={'/search'}
-        icon={<SearchOutlined />}
+        title={'Ustawienia'}
+        url={'/settings'}
+        icon={<ToolOutlined />}
       />
     </Sider>
   );

@@ -3,7 +3,7 @@ import axios from 'axios';
 export const authService = {};
 
 authService.login = (data) => {
-  const url = 'api/user/token';
+  const url = '/api/user/token';
   return new Promise((resolve, reject) => {
     axios
       .post(url, data)

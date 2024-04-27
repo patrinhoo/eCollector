@@ -11,6 +11,7 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['email', 'name']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('name', 'fields_to_show_on_list')}),
         (
             _('Permissions'),
             {

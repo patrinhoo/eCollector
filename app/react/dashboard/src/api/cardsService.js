@@ -6,7 +6,7 @@ export const cardsService = {};
 cardsService.create = (data) => {
   const { headers } = getAuthHeaders();
 
-  const url = `api/cards/`;
+  const url = `/api/cards/`;
 
   return new Promise((resolve, reject) => {
     axios({
@@ -31,7 +31,7 @@ cardsService.create = (data) => {
 cardsService.update = (cardId, data) => {
   const { headers } = getAuthHeaders();
 
-  const url = `api/cards/${cardId}/`;
+  const url = `/api/cards/${cardId}/`;
 
   return new Promise((resolve, reject) => {
     axios({

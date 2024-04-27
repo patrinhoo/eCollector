@@ -3,7 +3,7 @@ import axios from 'axios';
 export const registerService = {};
 
 registerService.register = (data) => {
-  const url = 'api/user/create';
+  const url = '/api/user/create';
   return new Promise((resolve, reject) => {
     axios
       .post(url, data)
