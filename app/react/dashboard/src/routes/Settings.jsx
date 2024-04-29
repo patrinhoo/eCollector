@@ -68,7 +68,7 @@ export const Settings = () => {
 
   const onFinish = useCallback(
     (values) => {
-      const customFields = values.customFields.map((field) => field.field);
+      const customFields = values.customFields?.map((field) => field.field);
 
       const tempData = {
         fields_to_show_on_list: {
