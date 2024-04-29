@@ -1,8 +1,9 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Spin, Row, Col, Card, Button } from 'antd';
+import React, { useCallback } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Spin, Row, Col, Card, Button, message, Modal } from 'antd';
 
 import { useSingleCard } from '../api/useSingleCard';
+import { cardsService } from '../api/cardsService';
 import { getCardStatusName } from '../utils/getCardStatusName';
 import { getMaterialTypeName } from '../utils/getMaterialTypeName';
 import { getCardShapeName } from '../utils/getCardShapeName';
@@ -11,10 +12,36 @@ import { getPrintTypeName } from '../utils/getPrintTypeName';
 import { getGsmOperatorName } from '../utils/getGsmOperatorName';
 import { getChipTypeName } from '../utils/getChipTypeName';
 
+const { confirm } = Modal;
+
 export const CardShow = () => {
   const { cardId } = useParams();
+  const navigate = useNavigate();
 
   const { isLoading, data: cardData } = useSingleCard(cardId);
+
+  const deleteHandler = useCallback(() => {
+    confirm({
+      title: 'Czy na pewno chcesz usunąć kartę?',
+      okText: 'Usuń',
+      okType: 'danger',
+      cancelText: 'Anuluj',
+      icon: false,
+      width: 450,
+      onOk() {
+        cardsService
+          .delete(cardId)
+          .then(() => {
+            message.success('Karta została usunięta');
+            navigate(-1);
+          })
+          .catch((err) => {
+            console.log(err);
+            message.error('Wystąpił błąd!');
+          });
+      },
+    });
+  }, [navigate, confirm, cardsService]);
 
   return (
     <div className='tw-py-8 tw-px-2 sm:tw-px-4 md:tw-p-8'>
@@ -26,9 +53,12 @@ export const CardShow = () => {
             KARTA
           </div>
           <div className='tw-text-right tw-mb-4'>
-            <Link to={`/cards/${cardId}/edit`}>
+            <Link to={`/cards/${cardId}/edit`} className='tw-mr-4'>
               <Button>EDYTUJ</Button>
             </Link>
+            <Button type='danger' onClick={deleteHandler}>
+              USUŃ
+            </Button>
           </div>
           <Row gutter={[20, 20]}>
             <Col xs={24} xl={12}>

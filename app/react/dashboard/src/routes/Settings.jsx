@@ -68,8 +68,6 @@ export const Settings = () => {
 
   const onFinish = useCallback(
     (values) => {
-      console.log(values);
-
       const customFields = values.customFields.map((field) => field.field);
 
       const tempData = {

@@ -30,11 +30,11 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=64)),
                 (
                     "awers",
-                    models.ImageField(upload_to=api.models.recipe_image_file_path),
+                    models.ImageField(upload_to=api.models.card_image_file_path),
                 ),
                 (
                     "rewers",
-                    models.ImageField(upload_to=api.models.recipe_image_file_path),
+                    models.ImageField(upload_to=api.models.card_image_file_path),
                 ),
                 ("printed_amount", models.CharField(max_length=64)),
                 (
