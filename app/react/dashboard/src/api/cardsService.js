@@ -52,3 +52,27 @@ cardsService.update = (cardId, data) => {
       });
   });
 };
+
+cardsService.delete = (cardId) => {
+  const { headers } = getAuthHeaders();
+
+  const url = `/api/cards/${cardId}/`;
+
+  return new Promise((resolve, reject) => {
+    axios({
+      url,
+      method: 'DELETE',
+      headers: { ...headers, 'Content-Type': 'multipart/form-data' },
+    })
+      .then((response) => {
+        if (response?.status !== 204) {
+          reject(response);
+        }
+
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

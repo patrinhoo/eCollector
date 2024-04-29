@@ -14,7 +14,7 @@ from django.contrib.auth.models import (
 from django.core.validators import MaxValueValidator, MinValueValidator 
 
 
-def recipe_image_file_path(instance, filename):
+def card_image_file_path(instance, filename):
     """Generate file path for new card image."""
     ext = os.path.splitext(filename)[1]
     filename = f'{uuid.uuid4()}.{ext}'
@@ -64,8 +64,8 @@ class Card(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     catalog_number = models.CharField(max_length=128)
     name = models.CharField(max_length=64)
-    awers = models.ImageField(upload_to=recipe_image_file_path)
-    rewers = models.ImageField(upload_to=recipe_image_file_path)
+    awers = models.ImageField(upload_to=card_image_file_path)
+    rewers = models.ImageField(upload_to=card_image_file_path)
     printed_amount = models.CharField(max_length=64)
 
     class NrOfPulses(models.IntegerChoices):
@@ -149,9 +149,9 @@ class Card(models.Model):
     chip_type = models.CharField(max_length=32, choices=ChipTypes)
 
     # sim_cardtype_number = models.CharField(max_length=32)
-    # sim_cardtype_image = models.ImageField(upload_to=recipe_image_file_path)
+    # sim_cardtype_image = models.ImageField(upload_to=card_image_file_path)
     # sim_damage_number = models.CharField(max_length=32)
-    # sim_damage_image = models.ImageField(upload_to=recipe_image_file_path)
+    # sim_damage_image = models.ImageField(upload_to=card_image_file_path)
 
     publisher = models.CharField(max_length=64)
 
