@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Spin,
@@ -12,62 +12,65 @@ import {
   Checkbox,
 } from 'antd';
 
-import { userService } from '../api/userService';
+import { GlobalContext } from '../store/Provider';
+import { getSettings } from '../store/actions/settings/getSettings';
+import { updateSettings } from '../store/actions/settings/updateSettings';
 
 export const Settings = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
-  const [isLoading, setIsLoading] = useState(true);
+  const { settingsState, settingsDispatch } = useContext(GlobalContext);
 
   useEffect(() => {
-    userService
-      .getUserData()
-      .then((data) => {
-        const { customFields, optionalFields } = data.fields_to_show_on_list;
+    if (!settingsState?.isLoaded || settingsState?.error) {
+      getSettings()(settingsDispatch);
+    }
 
-        const tempData = {};
+    // eslint-disable-next-line
+  }, []);
 
-        if (customFields) {
-          tempData.customFields = data.fields_to_show_on_list.customFields.map(
-            (field, idx) => ({
-              field: field,
-            })
-          );
-        }
+  useEffect(() => {
+    if (
+      settingsState.isLoaded &&
+      !settingsState.isLoading &&
+      !settingsState.error
+    ) {
+      const { customFields, optionalFields } =
+        settingsState?.data?.fields_to_show_on_list;
+      const tempData = {};
 
-        if (optionalFields) {
-          tempData.expiration_date = optionalFields.expiration_date;
-          tempData.gsm_operator = optionalFields.gsm_operator;
-          tempData.magnetic_stripe_width = optionalFields.magnetic_stripe_width;
-          tempData.material_type = optionalFields.material_type;
-          tempData.nr_of_pulses = optionalFields.nr_of_pulses;
-          tempData.number_printype = optionalFields.number_printype;
-          tempData.number_type = optionalFields.number_type;
-          tempData.prefix = optionalFields.prefix;
-          tempData.price = optionalFields.price;
-          tempData.printed_amount = optionalFields.printed_amount;
-          tempData.producer = optionalFields.producer;
-          tempData.production_date = optionalFields.production_date;
-          tempData.publisher = optionalFields.publisher;
-          tempData.series = optionalFields.series;
-          tempData.shape = optionalFields.shape;
-          tempData.surface_type = optionalFields.surface_type;
-          tempData.chip_type = optionalFields.chip_type;
-        }
+      if (customFields) {
+        tempData.customFields = customFields.map((field, idx) => ({
+          field: field,
+        }));
+      }
 
-        form.setFieldsValue(tempData);
+      if (optionalFields) {
+        tempData.expiration_date = optionalFields.expiration_date;
+        tempData.gsm_operator = optionalFields.gsm_operator;
+        tempData.magnetic_stripe_width = optionalFields.magnetic_stripe_width;
+        tempData.material_type = optionalFields.material_type;
+        tempData.nr_of_pulses = optionalFields.nr_of_pulses;
+        tempData.number_printype = optionalFields.number_printype;
+        tempData.number_type = optionalFields.number_type;
+        tempData.prefix = optionalFields.prefix;
+        tempData.price = optionalFields.price;
+        tempData.printed_amount = optionalFields.printed_amount;
+        tempData.producer = optionalFields.producer;
+        tempData.production_date = optionalFields.production_date;
+        tempData.publisher = optionalFields.publisher;
+        tempData.series = optionalFields.series;
+        tempData.shape = optionalFields.shape;
+        tempData.surface_type = optionalFields.surface_type;
+        tempData.chip_type = optionalFields.chip_type;
+      }
 
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        message.error('Wystąpił błąd!');
-      });
-  }, [setIsLoading, form]);
+      form.setFieldsValue(tempData);
+    }
+  }, [form, settingsState, settingsDispatch]);
 
   const onFinish = useCallback(
-    (values) => {
+    async (values) => {
       const customFields = values.customFields?.map((field) => field.field);
 
       const tempData = {
@@ -96,25 +99,16 @@ export const Settings = () => {
         },
       };
 
-      userService
-        .update(tempData)
+      updateSettings(tempData)(settingsDispatch)
         .then(() => {
           message.success('Pomyślnie zapisano ustawienia');
           navigate(-1);
         })
         .catch((err) => {
-          if (err?.response?.data) {
-            message.error('Podczas edycji ustawień wystąpił błąd!');
-            Object.keys(err.response.data).map((key) =>
-              message.error(err.response.data[key])
-            );
-          } else {
-            message.error('Podczas edycji ustawień wystąpił błąd!');
-          }
-          console.log(err);
+          message.error('Podczas edycji ustawień wystąpił błąd!');
         });
     },
-    [navigate]
+    [navigate, settingsDispatch]
   );
 
   const onFinishFailed = useCallback((values) => {
@@ -128,7 +122,7 @@ export const Settings = () => {
 
   return (
     <div className='tw-p-8'>
-      {isLoading ? (
+      {settingsState.isLoading ? (
         <Spin />
       ) : (
         <>

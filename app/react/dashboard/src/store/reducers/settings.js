@@ -1,0 +1,34 @@
+import { settingsActionTypes } from '../const/settingsActionTypes';
+
+export const settings = (state, { payload, type }) => {
+  switch (type) {
+    case settingsActionTypes.SETTINGS_LOADING: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case settingsActionTypes.SETTINGS_LOAD_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isLoaded: true,
+        data: {
+          ...state.data,
+          fields_to_show_on_list: payload,
+        },
+      };
+    }
+
+    case settingsActionTypes.SETTINGS_LOAD_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
+      };
+    }
+    default:
+      return state;
+  }
+};
