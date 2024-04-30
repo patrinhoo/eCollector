@@ -41,7 +41,7 @@ export const CardShow = () => {
           });
       },
     });
-  }, [navigate, confirm, cardsService]);
+  }, [navigate, cardId]);
 
   return (
     <div className='tw-py-8 tw-px-2 sm:tw-px-4 md:tw-p-8'>
