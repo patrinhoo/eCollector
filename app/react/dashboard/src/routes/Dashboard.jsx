@@ -131,7 +131,12 @@ export const Dashboard = () => {
       <Table
         columns={columns}
         dataSource={data}
-        pagination={{ defaultPageSize: 1 }}
+        pagination={{
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: [5, 10, 25, 50],
+          locale: { items_per_page: '' },
+        }}
         scroll={{ x: true }}
         onChange={handleTableChange}
         showSorterTooltip={false}
