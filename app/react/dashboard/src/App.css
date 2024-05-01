@@ -27,6 +27,18 @@
   background-color: #f94449;
 }
 
+.ant-pagination-options {
+  position: absolute;
+  left: 0;
+}
+
+.ant-pagination-options::before {
+  content: 'Pozycji na stronie';
+  color: #b1cade;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
 @media only screen and (min-width: 640px) {
   .form-actions {
     width: calc(100% - 200px);
