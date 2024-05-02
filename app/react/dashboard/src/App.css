@@ -39,9 +39,19 @@
   margin-right: 10px;
 }
 
+.ant-layout-sider {
+  position: fixed !important;
+  height: 100vh;
+  overflow: auto;
+}
+
 @media only screen and (min-width: 640px) {
   .form-actions {
     width: calc(100% - 200px);
     left: 200px;
+  }
+
+  .ant-layout-content {
+    margin-left: 200px;
   }
 }
