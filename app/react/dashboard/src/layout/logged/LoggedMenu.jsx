@@ -33,6 +33,7 @@ export const LoggedMenu = () => {
         title={'Ustawienia'}
         url={'/settings'}
         icon={<ToolOutlined />}
+        lastItem
       />
     </Sider>
   );
