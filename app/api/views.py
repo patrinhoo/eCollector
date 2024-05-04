@@ -1,10 +1,11 @@
-from rest_framework import viewsets, generics, authentication, permissions
+from rest_framework import viewsets, generics, authentication, permissions, status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
 from . import models
@@ -28,6 +29,52 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class PendingCardViewSet(viewsets.ModelViewSet):
+    queryset = models.PendingCard.objects.all()
+    serializer_class = serializers.PendingCardSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
+
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['name']
+    search_fields = ['name']
+    ordering_fields = ['id', 'name']
+    ordering = ['-id']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        
+        return queryset.filter(user=self.request.user).distinct()
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class UpgradePendingCardViewSet(viewsets.ViewSet):
+    serializer_class = serializers.UpgradeCardSerializer
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, pk):
+        pending_card = models.PendingCard.objects.get(id=pk)
+
+        serializer = serializers.UpgradeCardSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            card = serializer.save(
+                user=self.request.user, 
+                name=pending_card.name, 
+                awers=pending_card.awers, 
+                rewers=pending_card.rewers
+            )
+
+            pending_card.delete()
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CardViewSet(viewsets.ModelViewSet):
