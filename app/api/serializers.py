@@ -57,6 +57,18 @@ class AuthTokenSerializer(serializers.Serializer):
         return attrs
 
 
+class PendingCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.PendingCard
+        exclude = ['user']
+
+
+class UpgradeCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Card
+        exclude = ['user', 'name', 'awers', 'rewers']
+
+
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Card

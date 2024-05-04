@@ -42,3 +42,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Card)
+admin.site.register(models.PendingCard)

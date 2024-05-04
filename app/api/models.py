@@ -59,6 +59,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
 
+class PendingCard(models.Model):
+    """Phone card without completed data."""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=64)
+    awers = models.ImageField(upload_to=card_image_file_path)
+    rewers = models.ImageField(upload_to=card_image_file_path)
+
+    def __str__(self):
+        return f'{self.id}. {self.name}'
+
+
 class Card(models.Model):
     """Phone card."""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
