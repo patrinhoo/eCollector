@@ -11,7 +11,7 @@ export const updateSettings = (settingsData) => (dispatch) => {
     .then((data) => {
       dispatch({
         type: settingsActionTypes.SETTINGS_LOAD_SUCCESS,
-        payload: data?.fields_to_show_on_list,
+        payload: data?.fields_to_show,
       });
     })
     .catch((err) => {
