@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Card, Row, Col, Input, Button, message } from 'antd';
 
-import { userService } from '../api/userService';
+import { userService } from '../../api/userService';
 
 export const ChangePassword = () => {
   const navigate = useNavigate();

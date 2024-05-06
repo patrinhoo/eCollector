@@ -1,72 +1,53 @@
-import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Table, Button } from "antd";
+import { Table, Button } from 'antd';
 
-import { useCardsList } from "../api/useCardsList";
-import { getCardStatusName } from "../utils/getCardStatusName";
-import { CardsFilterModal } from "../common/components/CardsFilterModal";
+import { usePendingCardsList } from '../../api/usePendingCardsList';
+import { CardsFilterModal } from '../../common/components/CardsFilterModal';
 
 const columns = [
   {
-    title: "Nazwa karty",
-    dataIndex: "name",
-    key: "name",
+    title: 'Nazwa karty',
+    dataIndex: 'name',
+    key: 'name',
     sorter: true,
   },
   {
-    title: "Numer katalogowy",
-    dataIndex: "catalog_number",
-    key: "catalog_number",
-    sorter: true,
-  },
-  {
-    title: "Awers",
-    dataIndex: "awers",
-    key: "awers",
+    title: 'Awers',
+    dataIndex: 'awers',
+    key: 'awers',
     render: (text, record, index) => (
-      <img src={text} alt="awers" style={{ height: 100 }} />
+      <img src={text} alt='awers' style={{ height: 100 }} />
     ),
   },
   {
-    title: "Rewers",
-    dataIndex: "rewers",
-    key: "rewers",
+    title: 'Rewers',
+    dataIndex: 'rewers',
+    key: 'rewers',
     render: (text, record, index) => (
-      <img src={text} alt="rewers" style={{ height: 100 }} />
+      <img src={text} alt='rewers' style={{ height: 100 }} />
     ),
   },
   {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    render: (text, record, index) => getCardStatusName(text),
-    sorter: true,
-  },
-  {
-    title: "Komentarz",
-    dataIndex: "comment",
-    key: "comment",
-  },
-  {
-    key: "edit",
+    key: 'edit',
     width: 50,
     render: (text, record, index) => (
-      <Link to={`/cards/${record.id}/edit`}>Edytuj</Link>
+      <Link to={`/pendingCards/${record.id}/upgrade`}>Uzupełnij</Link>
     ),
   },
   {
-    key: "show",
+    key: 'show',
     width: 50,
     render: (text, record, index) => (
-      <Link to={`/cards/${record.id}/show`}>Pokaż</Link>
+      <Link to={`/pendingCards/${record.id}/show`}>Pokaż</Link>
     ),
   },
 ];
 
-export const Dashboard = () => {
+export const PendingCardsList = () => {
   const [params, setParams] = useState({});
-  const { isLoading, data } = useCardsList(params);
+  const { isLoading, data } = usePendingCardsList(params);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isFiltered, setIsFiltered] = useState(false);
@@ -75,17 +56,13 @@ export const Dashboard = () => {
     setParams((currParams) => {
       const tempParams = {};
 
-      if (currParams.catalog_number) {
-        tempParams.catalog_number = currParams.catalog_number;
-      }
-
       if (currParams.name) {
         tempParams.name = currParams.name;
       }
 
       if (sorter.order) {
         tempParams.ordering =
-          sorter.order === "descend" ? "-" + sorter.field : sorter.field;
+          sorter.order === 'descend' ? '-' + sorter.field : sorter.field;
       }
 
       return tempParams;
@@ -111,21 +88,19 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div className="tw-p-8">
-      <div className="tw-mb-8 tw-text-yellow-medium tw-text-3xl tw-font-semibold tw-italic tw-text-center">
-        Moje karty
+    <div className='tw-p-8'>
+      <div className='tw-mb-8 tw-text-yellow-medium tw-text-3xl tw-font-semibold tw-italic tw-text-center'>
+        Oczekujące karty
       </div>
-      <div className="tw-flex tw-justify-end tw-mb-4 tw-gap-4">
+      <div className='tw-flex tw-justify-end tw-mb-4 tw-gap-4'>
         {isFiltered ? <Button onClick={removeFiltersHandler}>X</Button> : null}
         <Button onClick={showFilterModal}>FILTRUJ</Button>
-        <Link to={"/cards/create"}>
-          <Button>+ DODAJ</Button>
-        </Link>
       </div>
       <CardsFilterModal
         isModalVisible={isModalVisible}
         hideModal={hideFilterModal}
         handleFilterChange={handleFilterChange}
+        isPendingCard
       />
 
       <Table
@@ -141,7 +116,7 @@ export const Dashboard = () => {
         onChange={handleTableChange}
         showSorterTooltip={false}
         loading={isLoading}
-        rowKey="id"
+        rowKey='id'
       />
     </div>
   );

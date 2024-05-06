@@ -15,8 +15,8 @@ import {
 } from 'antd';
 import moment from 'moment';
 
-import { useSingleCard } from '../api/useSingleCard';
-import { cardsService } from '../api/cardsService';
+import { useSingleCard } from '../../api/useSingleCard';
+import { cardsService } from '../../api/cardsService';
 
 const { Option } = Select;
 

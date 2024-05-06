@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input, Form, message } from 'antd';
 
-import { Logo } from '../common/icons/Logo';
-import { User } from '../common/icons/User';
-import { Enter } from '../common/icons/Enter';
+import { Logo } from '../../common/icons/Logo';
+import { User } from '../../common/icons/User';
+import { Enter } from '../../common/icons/Enter';
 
-import { registerService } from '../api/registerService';
+import { registerService } from '../../api/registerService';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();

@@ -12,9 +12,9 @@ import {
   Checkbox,
 } from 'antd';
 
-import { GlobalContext } from '../store/Provider';
-import { getSettings } from '../store/actions/settings/getSettings';
-import { updateSettings } from '../store/actions/settings/updateSettings';
+import { GlobalContext } from '../../store/Provider';
+import { getSettings } from '../../store/actions/settings/getSettings';
+import { updateSettings } from '../../store/actions/settings/updateSettings';
 
 export const Settings = () => {
   const navigate = useNavigate();
