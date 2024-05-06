@@ -1,12 +1,13 @@
-import React, { useCallback } from "react";
-import { Modal, Form, Row, Col, Input } from "antd";
+import React, { useCallback } from 'react';
+import { Modal, Form, Row, Col, Input } from 'antd';
 
-import "./CardsFilterModal.css";
+import './CardsFilterModal.css';
 
 export const CardsFilterModal = ({
   isModalVisible,
   hideModal,
   handleFilterChange,
+  isPendingCard = false,
 }) => {
   const [form] = Form.useForm();
 
@@ -14,8 +15,10 @@ export const CardsFilterModal = ({
     form.validateFields().then((values) => {
       const tempParams = {};
 
-      if (values?.catalog_number) {
-        tempParams.catalog_number = values.catalog_number;
+      if (!isPendingCard) {
+        if (values?.catalog_number) {
+          tempParams.catalog_number = values.catalog_number;
+        }
       }
 
       if (values?.name) {
@@ -26,28 +29,30 @@ export const CardsFilterModal = ({
 
       hideModal();
     });
-  }, [form, hideModal, handleFilterChange]);
+  }, [form, hideModal, handleFilterChange, isPendingCard]);
 
   return (
     <>
       <Modal
-        title="Filtruj karty"
+        title='Filtruj karty'
         open={isModalVisible}
         onCancel={hideModal}
         onOk={filterOkHandler}
       >
-        <Form form={form} name="filter" className="tw-pt-4">
+        <Form form={form} name='filter' className='tw-pt-4'>
           <Row gutter={[20, 5]}>
             <Col xs={24}>
-              <Form.Item name="catalog_number">
-                <Input placeholder="Numer katalogowy" />
+              <Form.Item name='name'>
+                <Input placeholder='Nazwa karty' />
               </Form.Item>
             </Col>
-            <Col xs={24}>
-              <Form.Item name="name">
-                <Input placeholder="Nazwa karty" />
-              </Form.Item>
-            </Col>
+            {!isPendingCard ? (
+              <Col xs={24}>
+                <Form.Item name='catalog_number'>
+                  <Input placeholder='Numer katalogowy' />
+                </Form.Item>
+              </Col>
+            ) : null}
           </Row>
         </Form>
       </Modal>

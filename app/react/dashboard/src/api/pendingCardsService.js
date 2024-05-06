@@ -1,26 +1,26 @@
 import axios from 'axios';
 import { getAuthHeaders } from '../hooks/useApi';
 
-export const cardsService = {};
+export const pendingCardsService = {};
 
-cardsService.create = (data) => {
+pendingCardsService.upgrade = (pendingCardId, data) => {
   const { headers } = getAuthHeaders();
 
-  const url = `/api/cards/`;
+  const url = `/api/pendingcards/${pendingCardId}/upgrade/`;
 
   return new Promise((resolve, reject) => {
     axios({
       url,
       method: 'POST',
       data,
-      headers: { ...headers, 'Content-Type': 'multipart/form-data' },
+      headers: headers,
     })
       .then((response) => {
         if (response?.status !== 201) {
           reject();
         }
 
-        resolve(response);
+        resolve(response.data);
       })
       .catch((error) => {
         reject(error);
@@ -28,35 +28,10 @@ cardsService.create = (data) => {
   });
 };
 
-cardsService.update = (cardId, data) => {
+pendingCardsService.delete = (pendingCardId) => {
   const { headers } = getAuthHeaders();
 
-  const url = `/api/cards/${cardId}/`;
-
-  return new Promise((resolve, reject) => {
-    axios({
-      url,
-      method: 'PATCH',
-      data,
-      headers: { ...headers, 'Content-Type': 'multipart/form-data' },
-    })
-      .then((response) => {
-        if (response?.status !== 200) {
-          reject();
-        }
-
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-cardsService.delete = (cardId) => {
-  const { headers } = getAuthHeaders();
-
-  const url = `/api/cards/${cardId}/`;
+  const url = `/api/pendingcards/${pendingCardId}/`;
 
   return new Promise((resolve, reject) => {
     axios({

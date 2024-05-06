@@ -2,15 +2,15 @@ import React, { useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Spin, Row, Col, Card, Button, message, Modal } from 'antd';
 
-import { useSingleCard } from '../api/useSingleCard';
-import { cardsService } from '../api/cardsService';
-import { getCardStatusName } from '../utils/getCardStatusName';
-import { getMaterialTypeName } from '../utils/getMaterialTypeName';
-import { getCardShapeName } from '../utils/getCardShapeName';
-import { getSurfaceTypeName } from '../utils/getSurfaceTypeName';
-import { getPrintTypeName } from '../utils/getPrintTypeName';
-import { getGsmOperatorName } from '../utils/getGsmOperatorName';
-import { getChipTypeName } from '../utils/getChipTypeName';
+import { useSingleCard } from '../../api/useSingleCard';
+import { cardsService } from '../../api/cardsService';
+import { getCardStatusName } from '../../utils/getCardStatusName';
+import { getMaterialTypeName } from '../../utils/getMaterialTypeName';
+import { getCardShapeName } from '../../utils/getCardShapeName';
+import { getSurfaceTypeName } from '../../utils/getSurfaceTypeName';
+import { getPrintTypeName } from '../../utils/getPrintTypeName';
+import { getGsmOperatorName } from '../../utils/getGsmOperatorName';
+import { getChipTypeName } from '../../utils/getChipTypeName';
 
 const { confirm } = Modal;
 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spin, Form, Card, Row, Col, Input, Button, message } from 'antd';
 
-import { userService } from '../api/userService';
+import { userService } from '../../api/userService';
 
 export const MyAccount = () => {
   const navigate = useNavigate();

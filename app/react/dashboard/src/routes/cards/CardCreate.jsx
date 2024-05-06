@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-import { cardsService } from '../api/cardsService';
+import { cardsService } from '../../api/cardsService';
 
 const { Option } = Select;
 
