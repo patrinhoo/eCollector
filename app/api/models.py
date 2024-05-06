@@ -52,7 +52,28 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    fields_to_show_on_list = models.JSONField(default=dict())
+    fields_to_show = models.JSONField(default=dict(
+        customFields = [], 
+        optionalFields = {
+            'expiration_date': True,
+            'gsm_operator': True,
+            'magnetic_stripe_width': True,
+            'material_type': True,
+            'nr_of_pulses': True,
+            'number_printype': True,
+            'number_type': True,
+            'prefix': True,
+            'price': True,
+            'printed_amount': True,
+            'producer': True,
+            'production_date': True,
+            'publisher': True,
+            'series': True,
+            'shape': True,
+            'surface_type': True,
+            'chip_type': True,
+        },
+    ), blank=True)
 
     objects = UserManager()
 
@@ -174,7 +195,7 @@ class Card(models.Model):
     status = models.CharField(max_length=32, choices=Status)
     comment = models.CharField(max_length=512)
 
-    additional_attributes = models.JSONField(default=dict())
+    additional_attributes = models.JSONField(default=dict(), blank=True)
 
 
     def __str__(self):

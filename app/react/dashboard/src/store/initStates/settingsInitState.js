@@ -3,7 +3,7 @@ export const settingsInitState = {
   isLoading: false,
   error: false,
   data: {
-    fields_to_show_on_list: {
+    fields_to_show: {
       customFields: [],
 
       optionalFields: {

@@ -36,7 +36,7 @@ export const Settings = () => {
       !settingsState.error
     ) {
       const { customFields, optionalFields } =
-        settingsState?.data?.fields_to_show_on_list;
+        settingsState?.data?.fields_to_show;
       const tempData = {};
 
       if (customFields) {
@@ -74,27 +74,27 @@ export const Settings = () => {
       const customFields = values.customFields?.map((field) => field.field);
 
       const tempData = {
-        fields_to_show_on_list: {
+        fields_to_show: {
           customFields: customFields,
 
           optionalFields: {
-            expiration_date: values.expiration_date,
-            gsm_operator: values.gsm_operator,
-            magnetic_stripe_width: values.magnetic_stripe_width,
-            material_type: values.material_type,
-            nr_of_pulses: values.nr_of_pulses,
-            number_printype: values.number_printype,
-            number_type: values.number_type,
-            prefix: values.prefix,
-            price: values.price,
-            printed_amount: values.printed_amount,
-            producer: values.producer,
-            production_date: values.production_date,
-            publisher: values.publisher,
-            series: values.series,
-            shape: values.shape,
-            surface_type: values.surface_type,
-            chip_type: values.chip_type,
+            expiration_date: Boolean(values.expiration_date),
+            gsm_operator: Boolean(values.gsm_operator),
+            magnetic_stripe_width: Boolean(values.magnetic_stripe_width),
+            material_type: Boolean(values.material_type),
+            nr_of_pulses: Boolean(values.nr_of_pulses),
+            number_printype: Boolean(values.number_printype),
+            number_type: Boolean(values.number_type),
+            prefix: Boolean(values.prefix),
+            price: Boolean(values.price),
+            printed_amount: Boolean(values.printed_amount),
+            producer: Boolean(values.producer),
+            production_date: Boolean(values.production_date),
+            publisher: Boolean(values.publisher),
+            series: Boolean(values.series),
+            shape: Boolean(values.shape),
+            surface_type: Boolean(values.surface_type),
+            chip_type: Boolean(values.chip_type),
           },
         },
       };
