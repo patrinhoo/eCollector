@@ -155,6 +155,8 @@ export const CardEdit = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             style={{ marginBottom: 100 }}
+            layout='vertical'
+            requiredMark={false}
           >
             <Row gutter={[20, 20]}>
               <Col xs={24} xl={12}>
@@ -230,6 +232,7 @@ export const CardEdit = () => {
                         <Col xs={24} md={12}>
                           <Form.Item
                             name='name'
+                            label='Nazwa karty'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
@@ -240,6 +243,7 @@ export const CardEdit = () => {
                         <Col xs={24} md={12}>
                           <Form.Item
                             name='catalog_number'
+                            label='Numer katalogowy'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
@@ -250,6 +254,7 @@ export const CardEdit = () => {
                         <Col xs={24} md={12}>
                           <Form.Item
                             name='status'
+                            label='Status'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
@@ -264,6 +269,7 @@ export const CardEdit = () => {
                         <Col xs={24} md={12}>
                           <Form.Item
                             name='comment'
+                            label='Komentarz'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
@@ -288,6 +294,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='printed_amount'
+                        label='Nakład'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Nakład' />
@@ -296,6 +303,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='nr_of_pulses'
+                        label='Liczba impulsów'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Liczba impulsów'>
@@ -316,6 +324,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='price'
+                        label='Nominał'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Nominał' />
@@ -325,6 +334,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='production_date'
+                        label='Data produkcji'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <DatePicker
@@ -336,6 +346,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='expiration_date'
+                        label='Data ważności'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <DatePicker
@@ -347,6 +358,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='series'
+                        label='Seria'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Seria' />
@@ -355,6 +367,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='prefix'
+                        label='Prefix'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Prefix' />
@@ -363,6 +376,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='producer'
+                        label='Producent'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Producent' />
@@ -371,6 +385,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='material_type'
+                        label='Rodzaj materiału'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Rodzaj materiału'>
@@ -383,6 +398,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='shape'
+                        label='Kształt'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Kształt'>
@@ -396,6 +412,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='surface_type'
+                        label='Rodzaj powierzchni'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Rodzaj powierzchni'>
@@ -410,6 +427,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='number_printype'
+                        label='Sposób naniesienia numeru'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Sposób naniesienia numeru'>
@@ -431,6 +449,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='number_type'
+                        label='Rodzaj numeru'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Rodzaj numeru' />
@@ -439,6 +458,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='magnetic_stripe_width'
+                        label='Szerokość paska magnetycznego'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Szerokość paska magnetycznego' />
@@ -447,6 +467,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='gsm_operator'
+                        label='Sieć komórkowa'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Sieć komórkowa'>
@@ -468,6 +489,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='chip_type'
+                        label='Rodzaj chipa'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Rodzaj chipa'>
@@ -480,6 +502,7 @@ export const CardEdit = () => {
                     <Col xs={24} md={12}>
                       <Form.Item
                         name='publisher'
+                        label='Wydawca'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Wydawca' />

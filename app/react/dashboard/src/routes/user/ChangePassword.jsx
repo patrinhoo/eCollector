@@ -50,6 +50,8 @@ export const ChangePassword = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         style={{ marginBottom: 100 }}
+        layout='vertical'
+        requiredMark={false}
       >
         <Row gutter={[20, 20]}>
           <Col xs={0} md={2} lg={4} xl={6} xxl={8} />
@@ -65,6 +67,7 @@ export const ChangePassword = () => {
                 <Col xs={24}>
                   <Form.Item
                     name='password'
+                    label='Nowe hasło'
                     rules={[{ required: true, message: 'Pole wymagane' }]}
                   >
                     <Input.Password placeholder='Nowe hasło' />
@@ -73,6 +76,7 @@ export const ChangePassword = () => {
                 <Col xs={24}>
                   <Form.Item
                     name='password2'
+                    label='Powtórz hasło'
                     rules={[
                       { required: true, message: 'Pole wymagane' },
                       {

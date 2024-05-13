@@ -74,6 +74,8 @@ export const MyAccount = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             style={{ marginBottom: 100 }}
+            layout='vertical'
+            requiredMark={false}
           >
             <Row gutter={[20, 20]}>
               <Col xs={24} xl={12}>
@@ -90,6 +92,7 @@ export const MyAccount = () => {
                         <Col xs={24}>
                           <Form.Item
                             name='email'
+                            label='Email'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
@@ -100,6 +103,7 @@ export const MyAccount = () => {
                         <Col xs={24}>
                           <Form.Item
                             name='name'
+                            label='Nazwa użytkownika'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
