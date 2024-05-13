@@ -39,16 +39,22 @@ export const CardsFilterModal = ({
         onCancel={hideModal}
         onOk={filterOkHandler}
       >
-        <Form form={form} name='filter' className='tw-pt-4'>
+        <Form
+          form={form}
+          name='filter'
+          className='tw-py-4'
+          layout='vertical'
+          requiredMark={false}
+        >
           <Row gutter={[20, 5]}>
             <Col xs={24}>
-              <Form.Item name='name'>
+              <Form.Item name='name' label='Nazwa karty'>
                 <Input placeholder='Nazwa karty' />
               </Form.Item>
             </Col>
             {!isPendingCard ? (
               <Col xs={24}>
-                <Form.Item name='catalog_number'>
+                <Form.Item name='catalog_number' label='Numer katalogowy'>
                   <Input placeholder='Numer katalogowy' />
                 </Form.Item>
               </Col>
