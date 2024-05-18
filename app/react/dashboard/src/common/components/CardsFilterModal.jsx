@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
-import { Modal, Form, Row, Col, Input } from 'antd';
+import { Modal, Form, Row, Col, Input, Select } from 'antd';
 
 import './CardsFilterModal.css';
+
+const { Option } = Select;
 
 export const CardsFilterModal = ({
   isModalVisible,
@@ -15,10 +17,8 @@ export const CardsFilterModal = ({
     form.validateFields().then((values) => {
       const tempParams = {};
 
-      if (!isPendingCard) {
-        if (values?.catalog_number) {
-          tempParams.catalog_number = values.catalog_number;
-        }
+      if (values?.type) {
+        tempParams.type = values.type;
       }
 
       if (values?.name) {
@@ -52,13 +52,21 @@ export const CardsFilterModal = ({
                 <Input placeholder='Nazwa karty' />
               </Form.Item>
             </Col>
-            {!isPendingCard ? (
-              <Col xs={24}>
-                <Form.Item name='catalog_number' label='Numer katalogowy'>
-                  <Input placeholder='Numer katalogowy' />
-                </Form.Item>
-              </Col>
-            ) : null}
+            <Col xs={24}>
+              <Form.Item name='type' label='Typ'>
+                <Select placeholder='Typ'>
+                  <Option value='MAGNETIC'>MAGNETYCZNE</Option>
+                  <Option value='CHIP'>CHIPOWE</Option>
+                  <Option value='GSM'>GSM</Option>
+                  <Option value='ASSOCIATED_WITH_TELEPHONY'>
+                    POWIĄZANE Z TELEFONIĄ
+                  </Option>
+                  <Option value='OTHER_TOP_UPS'>DOŁADOWANIA RÓŻNE</Option>
+                  <Option value='POLONIA'>KARTY POLONIJNE</Option>
+                  <Option value='OTHER'>INNE</Option>
+                </Select>
+              </Form.Item>
+            </Col>
           </Row>
         </Form>
       </Modal>

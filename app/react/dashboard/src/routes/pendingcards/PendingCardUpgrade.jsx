@@ -15,6 +15,7 @@ import {
 
 import { pendingCardsService } from '../../api/pendingCardsService';
 import { useSinglePendingCard } from '../../api/useSinglePendingCard';
+import { getCardTypeName } from '../../utils/getCardTypeName';
 
 const { Option } = Select;
 
@@ -30,8 +31,8 @@ export const PendingCardUpgrade = () => {
     (values) => {
       const tempValues = {
         ...values,
-        production_date: values.production_date.format('YYYY-MM-DD'),
-        expiration_date: values.expiration_date.format('YYYY-MM-DD'),
+        production_date: values.production_date?.format('YYYY-MM-DD'),
+        expiration_date: values.expiration_date?.format('YYYY-MM-DD'),
       };
 
       pendingCardsService
@@ -86,6 +87,15 @@ export const PendingCardUpgrade = () => {
                       >
                         {pendingCardData.name}
                       </Col>
+                      <Col
+                        xs={24}
+                        className='tw-text-center tw-text-yellow-medium tw-mb-4'
+                      >
+                        Typ:
+                        <span className='tw-ml-5 tw-text-black-dark tw-italic'>
+                          {getCardTypeName(pendingCardData.type)}
+                        </span>
+                      </Col>
                       <Col xs={12}>
                         <div className='tw-text-md tw-font-semibold tw-text-center tw-text-black-dark tw-mb-4'>
                           AWERS
@@ -120,16 +130,6 @@ export const PendingCardUpgrade = () => {
                       </Col>
                       <Col xs={24} md={12}>
                         <Form.Item
-                          name='catalog_number'
-                          label='Numer katalogowy'
-                          rules={[{ required: true, message: 'Pole wymagane' }]}
-                        >
-                          <Input placeholder='Numer katalogowy' />
-                        </Form.Item>
-                      </Col>
-                      <Col xs={0} md={12} />
-                      <Col xs={24} md={12}>
-                        <Form.Item
                           name='status'
                           label='Status'
                           rules={[{ required: true, message: 'Pole wymagane' }]}
@@ -139,15 +139,6 @@ export const PendingCardUpgrade = () => {
                             <Option value='MISSING'>BRAK</Option>
                             <Option value='EXCESS'>NADWYŻKA</Option>
                           </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col xs={24} md={12}>
-                        <Form.Item
-                          name='comment'
-                          label='Komentarz'
-                          rules={[{ required: true, message: 'Pole wymagane' }]}
-                        >
-                          <Input placeholder='Komentarz' />
                         </Form.Item>
                       </Col>
                     </Row>
@@ -165,21 +156,19 @@ export const PendingCardUpgrade = () => {
                     INFORMACJE DODATKOWE
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='printed_amount'
-                      label='Nakład'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='catalog_number' label='Numer katalogowy'>
+                      <Input placeholder='Numer katalogowy' />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Form.Item name='printed_amount' label='Nakład'>
                       <Input placeholder='Nakład' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='nr_of_pulses'
-                      label='Liczba impulsów'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='nr_of_pulses' label='Liczba impulsów'>
                       <Select placeholder='Liczba impulsów'>
+                        <Option value=''>-</Option>
                         <Option value='5'>5</Option>
                         <Option value='10'>10</Option>
                         <Option value='15'>15</Option>
@@ -195,21 +184,12 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='price'
-                      label='Nominał'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='price' label='Nominał'>
                       <Input placeholder='Nominał' />
                     </Form.Item>
                   </Col>
-                  <Col xs={0} md={12} />
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='production_date'
-                      label='Data produkcji'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='production_date' label='Data produkcji'>
                       <DatePicker
                         placeholder='Data produkcji'
                         style={{ width: '100%' }}
@@ -217,11 +197,7 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='expiration_date'
-                      label='Data ważności'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='expiration_date' label='Data ważności'>
                       <DatePicker
                         placeholder='Data ważności'
                         style={{ width: '100%' }}
@@ -229,39 +205,24 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='series'
-                      label='Seria'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='series' label='Seria'>
                       <Input placeholder='Seria' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='prefix'
-                      label='Prefix'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='prefix' label='Prefix'>
                       <Input placeholder='Prefix' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='producer'
-                      label='Producent'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='producer' label='Producent'>
                       <Input placeholder='Producent' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='material_type'
-                      label='Rodzaj materiału'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='material_type' label='Rodzaj materiału'>
                       <Select placeholder='Rodzaj materiału'>
+                        <Option value=''>-</Option>
                         <Option value='CARTOON'>KARTON</Option>
                         <Option value='PLASTIC'>PLASTIK</Option>
                         <Option value='OTHER'>INNY</Option>
@@ -269,12 +230,9 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='shape'
-                      label='Kształt'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='shape' label='Kształt'>
                       <Select placeholder='Kształt'>
+                        <Option value=''>-</Option>
                         <Option value='RECTANGLE'>PROSTOKĄT</Option>
                         <Option value='CIRCLE'>KOŁO</Option>
                         <Option value='HEART'>SERCE</Option>
@@ -283,12 +241,9 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='surface_type'
-                      label='Rodzaj powierzchni'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='surface_type' label='Rodzaj powierzchni'>
                       <Select placeholder='Rodzaj powierzchni'>
+                        <Option value=''>-</Option>
                         <Option value='MAT'>MATOWA</Option>
                         <Option value='GLOSS'>BŁYSZCZĄCA</Option>
                         <Option value='COATED'>LAKIEROWANA</Option>
@@ -301,9 +256,9 @@ export const PendingCardUpgrade = () => {
                     <Form.Item
                       name='number_printype'
                       label='Sposób naniesienia numeru'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
                     >
                       <Select placeholder='Sposób naniesienia numeru'>
+                        <Option value=''>-</Option>
                         <Option value='EMBOSSED_HORIZONTAL'>
                           TŁOCZONY POZIOMY
                         </Option>
@@ -320,30 +275,22 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='number_type'
-                      label='Rodzaj numeru'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='number_type' label='Rodzaj numeru'>
                       <Input placeholder='Rodzaj numeru' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item
                       name='magnetic_stripe_width'
-                      label='Szerokość paska magentycznego'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
+                      label='Szerokość paska magnetycznego'
                     >
                       <Input placeholder='Szerokość paska magnetycznego' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='gsm_operator'
-                      label='Sieć komórkowa'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='gsm_operator' label='Sieć komórkowa'>
                       <Select placeholder='Sieć komórkowa'>
+                        <Option value=''>-</Option>
                         <Option value='ERA'>ERA</Option>
                         <Option value='TAK_TAK'>TAK TAK</Option>
                         <Option value='IDEA'>IDEA</Option>
@@ -360,12 +307,9 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='chip_type'
-                      label='Rodzaj chipa'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='chip_type' label='Rodzaj chipa'>
                       <Select placeholder='Rodzaj chipa'>
+                        <Option value=''>-</Option>
                         <Option value='MANUFACTURER'>PRODUCENT</Option>
                         <Option value='PATTERN'>WZÓR</Option>
                         <Option value='IMAGE'>OBRAZ</Option>
@@ -373,12 +317,13 @@ export const PendingCardUpgrade = () => {
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Form.Item
-                      name='publisher'
-                      label='Wydawca'
-                      rules={[{ required: true, message: 'Pole wymagane' }]}
-                    >
+                    <Form.Item name='publisher' label='Wydawca'>
                       <Input placeholder='Wydawca' />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Form.Item name='comment' label='Komentarz'>
+                      <Input placeholder='Komentarz' />
                     </Form.Item>
                   </Col>
                 </Row>

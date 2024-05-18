@@ -33,28 +33,71 @@ export const CardEdit = () => {
   useEffect(() => {
     if (!isLoading) {
       const tempData = {
-        catalog_number: data.catalog_number,
-        chip_type: data.chip_type,
-        comment: data.comment,
-        expiration_date: moment(data.expiration_date),
-        gsm_operator: data.gsm_operator,
-        magnetic_stripe_width: data.magnetic_stripe_width,
-        material_type: data.material_type,
         name: data.name,
-        nr_of_pulses: data.nr_of_pulses,
-        number_printype: data.number_printype,
-        number_type: data.number_type,
-        prefix: data.prefix,
-        price: data.price,
-        printed_amount: data.printed_amount,
-        producer: data.producer,
-        production_date: moment(data.production_date),
-        publisher: data.publisher,
-        series: data.series,
-        shape: data.shape,
+        type: data.type,
         status: data.status,
-        surface_type: data.surface_type,
       };
+
+      if (data.catalog_number) {
+        tempData.catalog_number = data.catalog_number;
+      }
+      if (data.chip_type) {
+        tempData.chip_type = data.chip_type;
+      }
+      if (data.comment) {
+        tempData.comment = data.comment;
+      }
+      if (data.expiration_date) {
+        tempData.expiration_date = moment(data.expiration_date);
+      }
+      if (data.gsm_operator) {
+        tempData.gsm_operator = data.gsm_operator;
+      }
+      if (data.magnetic_stripe_width) {
+        tempData.magnetic_stripe_width = data.magnetic_stripe_width;
+      }
+      if (data.material_type) {
+        tempData.material_type = data.material_type;
+      }
+      if (data.nr_of_pulses) {
+        tempData.nr_of_pulses = data.nr_of_pulses;
+      }
+      if (data.number_printype) {
+        tempData.number_printype = data.number_printype;
+      }
+      if (data.number_type) {
+        tempData.number_type = data.number_type;
+      }
+      if (data.prefix) {
+        tempData.prefix = data.prefix;
+      }
+      if (data.price) {
+        tempData.price = data.price;
+      }
+      if (data.value) {
+        tempData.value = data.value;
+      }
+      if (data.printed_amount) {
+        tempData.printed_amount = data.printed_amount;
+      }
+      if (data.producer) {
+        tempData.producer = data.producer;
+      }
+      if (data.production_date) {
+        tempData.production_date = moment(data.production_date);
+      }
+      if (data.publisher) {
+        tempData.publisher = data.publisher;
+      }
+      if (data.series) {
+        tempData.series = data.series;
+      }
+      if (data.shape) {
+        tempData.shape = data.shape;
+      }
+      if (data.surface_type) {
+        tempData.surface_type = data.surface_type;
+      }
 
       form.setFieldsValue(tempData);
     }
@@ -72,34 +115,51 @@ export const CardEdit = () => {
         formData.append('rewers', rewers[0].originFileObj);
       }
 
-      formData.append('catalog_number', values.catalog_number);
-      formData.append('chip_type', values.chip_type);
-      formData.append('comment', values.comment);
+      formData.append('type', values.type);
+      formData.append('name', values.name);
+      formData.append('status', values.status);
+
+      formData.append('catalog_number', values.catalog_number ?? '');
+      formData.append('chip_type', values.chip_type ?? '');
+      formData.append('comment', values.comment ?? '');
       formData.append(
         'expiration_date',
-        values.expiration_date.format('YYYY-MM-DD')
+        values.expiration_date?.format('YYYY-MM-DD') ?? ''
       );
-      formData.append('gsm_operator', values.gsm_operator);
-      formData.append('magnetic_stripe_width', values.magnetic_stripe_width);
-      formData.append('material_type', values.material_type);
-      formData.append('name', values.name);
-      formData.append('nr_of_pulses', values.nr_of_pulses);
-      formData.append('number_printype', values.number_printype);
-      formData.append('number_type', values.number_type);
-      formData.append('prefix', values.prefix);
-      formData.append('price', values.price);
-      formData.append('printed_amount', values.printed_amount);
-      formData.append('producer', values.producer);
+      formData.append('gsm_operator', values.gsm_operator ?? '');
+      formData.append(
+        'magnetic_stripe_width',
+        values.magnetic_stripe_width ?? ''
+      );
+      formData.append('material_type', values.material_type ?? '');
+      formData.append('nr_of_pulses', values.nr_of_pulses ?? '');
+      formData.append('number_printype', values.number_printype ?? '');
+      formData.append('number_type', values.number_type ?? '');
+
+      formData.append('prefix', values.prefix ?? '');
+
+      formData.append('price', values.price ?? '');
+
+      formData.append('value', values.value ?? '');
+
+      formData.append('printed_amount', values.printed_amount ?? '');
+
+      formData.append('producer', values.producer ?? '');
+
       formData.append(
         'production_date',
-        values.production_date.format('YYYY-MM-DD')
+        values.production_date?.format('YYYY-MM-DD') ?? ''
       );
-      formData.append('publisher', values.publisher);
-      formData.append('producer', values.producer);
-      formData.append('series', values.series);
-      formData.append('shape', values.shape);
-      formData.append('status', values.status);
-      formData.append('surface_type', values.surface_type);
+
+      formData.append('publisher', values.publisher ?? '');
+
+      formData.append('producer', values.producer ?? '');
+
+      formData.append('series', values.series ?? '');
+
+      formData.append('shape', values.shape ?? '');
+
+      formData.append('surface_type', values.surface_type ?? '');
 
       cardsService
         .update(cardId, formData)
@@ -242,13 +302,25 @@ export const CardEdit = () => {
                         </Col>
                         <Col xs={24} md={12}>
                           <Form.Item
-                            name='catalog_number'
-                            label='Numer katalogowy'
+                            name='type'
+                            label='Typ'
                             rules={[
                               { required: true, message: 'Pole wymagane' },
                             ]}
                           >
-                            <Input placeholder='Numer katalogowy' />
+                            <Select placeholder='Typ'>
+                              <Option value='MAGNETIC'>MAGNETYCZNE</Option>
+                              <Option value='CHIP'>CHIPOWE</Option>
+                              <Option value='GSM'>GSM</Option>
+                              <Option value='ASSOCIATED_WITH_TELEPHONY'>
+                                POWIĄZANE Z TELEFONIĄ
+                              </Option>
+                              <Option value='OTHER_TOP_UPS'>
+                                DOŁADOWANIA RÓŻNE
+                              </Option>
+                              <Option value='POLONIA'>KARTY POLONIJNE</Option>
+                              <Option value='OTHER'>INNE</Option>
+                            </Select>
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
@@ -266,17 +338,6 @@ export const CardEdit = () => {
                             </Select>
                           </Form.Item>
                         </Col>
-                        <Col xs={24} md={12}>
-                          <Form.Item
-                            name='comment'
-                            label='Komentarz'
-                            rules={[
-                              { required: true, message: 'Pole wymagane' },
-                            ]}
-                          >
-                            <Input placeholder='Komentarz' />
-                          </Form.Item>
-                        </Col>
                       </Row>
                     </Card>
                   </Col>
@@ -292,21 +353,19 @@ export const CardEdit = () => {
                       INFORMACJE DODATKOWE
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='printed_amount'
-                        label='Nakład'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='catalog_number' label='Numer katalogowy'>
+                        <Input placeholder='Numer katalogowy' />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} md={12}>
+                      <Form.Item name='printed_amount' label='Nakład'>
                         <Input placeholder='Nakład' />
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='nr_of_pulses'
-                        label='Liczba impulsów'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='nr_of_pulses' label='Liczba impulsów'>
                         <Select placeholder='Liczba impulsów'>
+                          <Option value=''>-</Option>
                           <Option value='5'>5</Option>
                           <Option value='10'>10</Option>
                           <Option value='15'>15</Option>
@@ -322,21 +381,12 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='price'
-                        label='Nominał'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='price' label='Nominał'>
                         <Input placeholder='Nominał' />
                       </Form.Item>
                     </Col>
-                    <Col xs={0} md={12} />
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='production_date'
-                        label='Data produkcji'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='production_date' label='Data produkcji'>
                         <DatePicker
                           placeholder='Data produkcji'
                           style={{ width: '100%' }}
@@ -344,11 +394,7 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='expiration_date'
-                        label='Data ważności'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='expiration_date' label='Data ważności'>
                         <DatePicker
                           placeholder='Data ważności'
                           style={{ width: '100%' }}
@@ -356,39 +402,24 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='series'
-                        label='Seria'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='series' label='Seria'>
                         <Input placeholder='Seria' />
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='prefix'
-                        label='Prefix'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='prefix' label='Prefix'>
                         <Input placeholder='Prefix' />
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='producer'
-                        label='Producent'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='producer' label='Producent'>
                         <Input placeholder='Producent' />
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='material_type'
-                        label='Rodzaj materiału'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='material_type' label='Rodzaj materiału'>
                         <Select placeholder='Rodzaj materiału'>
+                          <Option value=''>-</Option>
                           <Option value='CARTOON'>KARTON</Option>
                           <Option value='PLASTIC'>PLASTIK</Option>
                           <Option value='OTHER'>INNY</Option>
@@ -396,12 +427,9 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='shape'
-                        label='Kształt'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='shape' label='Kształt'>
                         <Select placeholder='Kształt'>
+                          <Option value=''>-</Option>
                           <Option value='RECTANGLE'>PROSTOKĄT</Option>
                           <Option value='CIRCLE'>KOŁO</Option>
                           <Option value='HEART'>SERCE</Option>
@@ -410,12 +438,9 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='surface_type'
-                        label='Rodzaj powierzchni'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='surface_type' label='Rodzaj powierzchni'>
                         <Select placeholder='Rodzaj powierzchni'>
+                          <Option value=''>-</Option>
                           <Option value='MAT'>MATOWA</Option>
                           <Option value='GLOSS'>BŁYSZCZĄCA</Option>
                           <Option value='COATED'>LAKIEROWANA</Option>
@@ -428,9 +453,9 @@ export const CardEdit = () => {
                       <Form.Item
                         name='number_printype'
                         label='Sposób naniesienia numeru'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Select placeholder='Sposób naniesienia numeru'>
+                          <Option value=''>-</Option>
                           <Option value='EMBOSSED_HORIZONTAL'>
                             TŁOCZONY POZIOMY
                           </Option>
@@ -447,11 +472,7 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='number_type'
-                        label='Rodzaj numeru'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='number_type' label='Rodzaj numeru'>
                         <Input placeholder='Rodzaj numeru' />
                       </Form.Item>
                     </Col>
@@ -459,18 +480,14 @@ export const CardEdit = () => {
                       <Form.Item
                         name='magnetic_stripe_width'
                         label='Szerokość paska magnetycznego'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
                         <Input placeholder='Szerokość paska magnetycznego' />
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='gsm_operator'
-                        label='Sieć komórkowa'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='gsm_operator' label='Sieć komórkowa'>
                         <Select placeholder='Sieć komórkowa'>
+                          <Option value=''>-</Option>
                           <Option value='ERA'>ERA</Option>
                           <Option value='TAK_TAK'>TAK TAK</Option>
                           <Option value='IDEA'>IDEA</Option>
@@ -487,12 +504,9 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='chip_type'
-                        label='Rodzaj chipa'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='chip_type' label='Rodzaj chipa'>
                         <Select placeholder='Rodzaj chipa'>
+                          <Option value=''>-</Option>
                           <Option value='MANUFACTURER'>PRODUCENT</Option>
                           <Option value='PATTERN'>WZÓR</Option>
                           <Option value='IMAGE'>OBRAZ</Option>
@@ -500,12 +514,13 @@ export const CardEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                      <Form.Item
-                        name='publisher'
-                        label='Wydawca'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
+                      <Form.Item name='publisher' label='Wydawca'>
                         <Input placeholder='Wydawca' />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} md={12}>
+                      <Form.Item name='comment' label='Komentarz'>
+                        <Input placeholder='Komentarz' />
                       </Form.Item>
                     </Col>
                   </Row>

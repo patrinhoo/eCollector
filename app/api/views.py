@@ -39,9 +39,9 @@ class PendingCardViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['name']
-    search_fields = ['name']
-    ordering_fields = ['id', 'name']
+    filterset_fields = ['name', 'type']
+    search_fields = ['name', 'type']
+    ordering_fields = ['id', 'name', 'type']
     ordering = ['-id']
 
     def get_queryset(self):
@@ -67,6 +67,7 @@ class UpgradePendingCardViewSet(viewsets.ViewSet):
             card = serializer.save(
                 user=self.request.user, 
                 name=pending_card.name, 
+                type=pending_card.type, 
                 awers=pending_card.awers, 
                 rewers=pending_card.rewers
             )
@@ -84,9 +85,9 @@ class CardViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['catalog_number', 'name']
-    search_fields = ['catalog_number', 'name']
-    ordering_fields = ['id', 'catalog_number', 'name', 'status']
+    filterset_fields = ['name', 'type']
+    search_fields = ['name', 'type']
+    ordering_fields = ['id', 'name', 'type', 'status']
     ordering = ['-id']
 
     def get_queryset(self):

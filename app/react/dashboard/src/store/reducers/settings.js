@@ -16,7 +16,7 @@ export const settings = (state, { payload, type }) => {
         isLoaded: true,
         data: {
           ...state.data,
-          fields_to_show: payload,
+          ...payload,
         },
       };
     }
