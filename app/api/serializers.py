@@ -13,7 +13,31 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'password', 'name', 'fields_to_show']
+        fields = [
+            'email', 
+            'password', 
+            'name',
+            'catalog_number',
+            'expiration_date',
+            'gsm_operator',
+            'magnetic_stripe_width',
+            'material_type',
+            'nr_of_pulses',
+            'number_printype',
+            'number_type',
+            'prefix',
+            'price',
+            'value',
+            'printed_amount',
+            'producer',
+            'production_date',
+            'publisher',
+            'series',
+            'shape',
+            'surface_type',
+            'chip_type',
+            'comment',
+        ]
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
@@ -66,7 +90,7 @@ class PendingCardSerializer(serializers.ModelSerializer):
 class UpgradeCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Card
-        exclude = ['user', 'name', 'awers', 'rewers']
+        exclude = ['user', 'name', 'type', 'awers', 'rewers']
 
 
 class CardSerializer(serializers.ModelSerializer):
@@ -78,4 +102,4 @@ class CardSerializer(serializers.ModelSerializer):
 class CardListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Card
-        fields = ['id', 'name', 'catalog_number', 'status', 'comment', 'awers', 'rewers']
+        fields = ['id', 'name', 'type', 'status', 'comment', 'awers', 'rewers']

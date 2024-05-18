@@ -4,6 +4,8 @@ import { Spin, Row, Col, Card, Button, message, Modal } from 'antd';
 
 import { useSinglePendingCard } from '../../api/useSinglePendingCard';
 import { pendingCardsService } from '../../api/pendingCardsService';
+import { getCardTypeName } from '../../utils/getCardTypeName';
+import { getCardStatusName } from '../../utils/getCardStatusName';
 
 const { confirm } = Modal;
 
@@ -111,6 +113,19 @@ export const PendingCardShow = () => {
                           </Col>
                           <Col xs={16} className='tw-italic'>
                             {pendingCardData.name}
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col xs={24}>
+                        <Row gutter={20}>
+                          <Col
+                            xs={8}
+                            className='tw-text-right tw-text-yellow-medium'
+                          >
+                            Typ:
+                          </Col>
+                          <Col xs={16} className='tw-italic'>
+                            {getCardTypeName(pendingCardData.type)}
                           </Col>
                         </Row>
                       </Col>

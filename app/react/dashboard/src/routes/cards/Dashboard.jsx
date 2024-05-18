@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Table, Button } from 'antd';
 
 import { useCardsList } from '../../api/useCardsList';
+import { getCardTypeName } from '../../utils/getCardTypeName';
 import { getCardStatusName } from '../../utils/getCardStatusName';
 import { CardsFilterModal } from '../../common/components/CardsFilterModal';
 
@@ -15,9 +16,10 @@ const columns = [
     sorter: true,
   },
   {
-    title: 'Numer katalogowy',
-    dataIndex: 'catalog_number',
-    key: 'catalog_number',
+    title: 'Typ',
+    dataIndex: 'type',
+    key: 'type',
+    render: (text, record, index) => getCardTypeName(text),
     sorter: true,
   },
   {
@@ -75,8 +77,8 @@ export const Dashboard = () => {
     setParams((currParams) => {
       const tempParams = {};
 
-      if (currParams.catalog_number) {
-        tempParams.catalog_number = currParams.catalog_number;
+      if (currParams.type) {
+        tempParams.type = currParams.type;
       }
 
       if (currParams.name) {

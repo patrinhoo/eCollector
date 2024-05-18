@@ -52,28 +52,26 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    fields_to_show = models.JSONField(default=dict(
-        customFields = [], 
-        optionalFields = {
-            'expiration_date': True,
-            'gsm_operator': True,
-            'magnetic_stripe_width': True,
-            'material_type': True,
-            'nr_of_pulses': True,
-            'number_printype': True,
-            'number_type': True,
-            'prefix': True,
-            'price': True,
-            'printed_amount': True,
-            'producer': True,
-            'production_date': True,
-            'publisher': True,
-            'series': True,
-            'shape': True,
-            'surface_type': True,
-            'chip_type': True,
-        },
-    ), blank=True)
+    catalog_number = models.BooleanField(default=False)
+    expiration_date = models.BooleanField(default=False)
+    gsm_operator = models.BooleanField(default=False)
+    magnetic_stripe_width = models.BooleanField(default=False)
+    material_type = models.BooleanField(default=False)
+    nr_of_pulses = models.BooleanField(default=False)
+    number_printype = models.BooleanField(default=False)
+    number_type = models.BooleanField(default=False)
+    prefix = models.BooleanField(default=False)
+    price = models.BooleanField(default=False)
+    value = models.BooleanField(default=False)
+    printed_amount = models.BooleanField(default=False)
+    producer = models.BooleanField(default=False)
+    production_date = models.BooleanField(default=False)
+    publisher = models.BooleanField(default=False)
+    series = models.BooleanField(default=False)
+    shape = models.BooleanField(default=False)
+    surface_type = models.BooleanField(default=False)
+    chip_type = models.BooleanField(default=False)
+    comment = models.BooleanField(default=True)
 
     objects = UserManager()
 
@@ -87,6 +85,17 @@ class PendingCard(models.Model):
     awers = models.ImageField(upload_to=card_image_file_path)
     rewers = models.ImageField(upload_to=card_image_file_path)
 
+    class Types(models.TextChoices):
+        MAGNETIC = 'MAGNETIC'
+        CHIP = 'CHIP'
+        GSM = 'GSM'
+        ASSOCIATED_WITH_TELEPHONY = 'ASSOCIATED_WITH_TELEPHONY'
+        OTHER_TOP_UPS = 'OTHER_TOP_UPS'
+        POLONIA = 'POLONIA'
+        OTHER = "OTHER"
+
+    type = models.CharField(max_length=32, choices=Types, default=Types.OTHER)
+
     def __str__(self):
         return f'{self.id}. {self.name}'
 
@@ -94,11 +103,23 @@ class PendingCard(models.Model):
 class Card(models.Model):
     """Phone card."""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    catalog_number = models.CharField(max_length=128)
+
+    class Types(models.TextChoices):
+        MAGNETIC = 'MAGNETIC'
+        CHIP = 'CHIP'
+        GSM = 'GSM'
+        ASSOCIATED_WITH_TELEPHONY = 'ASSOCIATED_WITH_TELEPHONY'
+        OTHER_TOP_UPS = 'OTHER_TOP_UPS'
+        POLONIA = 'POLONIA'
+        OTHER = "OTHER"
+
+    type = models.CharField(max_length=32, choices=Types, default=Types.OTHER)
     name = models.CharField(max_length=64)
     awers = models.ImageField(upload_to=card_image_file_path)
     rewers = models.ImageField(upload_to=card_image_file_path)
-    printed_amount = models.CharField(max_length=64)
+
+    catalog_number = models.CharField(max_length=128, blank=True)
+    printed_amount = models.CharField(max_length=64, blank=True)
 
     class NrOfPulses(models.IntegerChoices):
         FIVE = 5
@@ -113,22 +134,21 @@ class Card(models.Model):
         ONE_HUNDRED_FIFTY = 150
         TWO_HUNDRED = 200
 
-    nr_of_pulses = models.IntegerField(choices=NrOfPulses)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    # cena zakupu
-    # wartość
-    production_date = models.DateField()
-    expiration_date = models.DateField()
-    series = models.CharField(max_length=64)
-    prefix = models.PositiveBigIntegerField(validators=[MinValueValidator(100), MaxValueValidator(9999)])
-    producer = models.CharField(max_length=64)
+    nr_of_pulses = models.IntegerField(choices=NrOfPulses, blank=True, null=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    value = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    production_date = models.DateField(blank=True, null=True)
+    expiration_date = models.DateField(blank=True, null=True)
+    series = models.CharField(max_length=64, blank=True)
+    prefix = models.PositiveBigIntegerField(validators=[MinValueValidator(100), MaxValueValidator(9999)], blank=True, null=True)
+    producer = models.CharField(max_length=64, blank=True)
 
     class Materials(models.TextChoices):
         CARTOON = "CARTOON"
         PLASTIC = "PLASTIC"
         OTHER = "OTHER"
 
-    material_type = models.CharField(max_length=32, choices=Materials, default=Materials.OTHER)
+    material_type = models.CharField(max_length=32, choices=Materials, blank=True)
 
     class Shapes(models.TextChoices):
         RECTANGLE = "RECTANGLE"
@@ -136,7 +156,7 @@ class Card(models.Model):
         HEART = "HEART"
         OTHER = "OTHER"
 
-    shape = models.CharField(max_length=32, choices=Shapes, default=Shapes.OTHER)
+    shape = models.CharField(max_length=32, choices=Shapes, blank=True)
 
     class Surfaces(models.TextChoices):
         MAT = "MAT"
@@ -145,7 +165,7 @@ class Card(models.Model):
         MAT_COATED = "MAT_COATED"
         OTHER = "OTHER"
 
-    surface_type = models.CharField(max_length=32, choices=Surfaces, default=Surfaces.OTHER)
+    surface_type = models.CharField(max_length=32, choices=Surfaces, blank=True)
 
     class PrintTypes(models.TextChoices):
         EMBOSSED_HORIZONTAL = "EMBOSSED_HORIZONTAL"
@@ -153,9 +173,9 @@ class Card(models.Model):
         PRINTED_HORIZONTAL = "PRINTED_HORIZONTAL"
         PRINTED_VERTICAL = "PRINTED_VERTICAL"
 
-    number_printype =  models.CharField(max_length=32, choices=PrintTypes)
-    number_type = models.CharField(max_length=64)
-    magnetic_stripe_width = models.CharField(max_length=64)
+    number_printype =  models.CharField(max_length=32, choices=PrintTypes, blank=True)
+    number_type = models.CharField(max_length=64, blank=True)
+    magnetic_stripe_width = models.CharField(max_length=64, blank=True)
 
     class GsmOperators(models.TextChoices):
         ERA = "ERA"
@@ -171,21 +191,21 @@ class Card(models.Model):
         REDBULL = "REDBULL"
         OTHER = "OTHER"
 
-    gsm_operator = models.CharField(max_length=32, choices=GsmOperators, default=GsmOperators.OTHER)
+    gsm_operator = models.CharField(max_length=32, choices=GsmOperators, blank=True)
 
     class ChipTypes(models.TextChoices):
         MANUFACTURER = "MANUFACTURER"
         PATTERN = "PATTERN"
         IMAGE = "IMAGE"
 
-    chip_type = models.CharField(max_length=32, choices=ChipTypes)
+    chip_type = models.CharField(max_length=32, choices=ChipTypes, blank=True)
 
     # sim_cardtype_number = models.CharField(max_length=32)
     # sim_cardtype_image = models.ImageField(upload_to=card_image_file_path)
     # sim_damage_number = models.CharField(max_length=32)
     # sim_damage_image = models.ImageField(upload_to=card_image_file_path)
 
-    publisher = models.CharField(max_length=64)
+    publisher = models.CharField(max_length=64, blank=True)
 
     class Status(models.TextChoices):
         HAVE = "HAVE"
@@ -193,10 +213,7 @@ class Card(models.Model):
         EXCESS = "EXCESS"
 
     status = models.CharField(max_length=32, choices=Status)
-    comment = models.CharField(max_length=512)
-
-    additional_attributes = models.JSONField(default=dict(), blank=True)
-
+    comment = models.CharField(max_length=512, blank=True)
 
     def __str__(self):
-        return f'{self.name} - {self.catalog_number}'
+        return f'{self.id}. {self.name}'

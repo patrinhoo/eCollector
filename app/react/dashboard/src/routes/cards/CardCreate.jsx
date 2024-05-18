@@ -43,34 +43,79 @@ export const CardCreate = () => {
         formData.append('rewers', rewers[0].originFileObj);
       }
 
-      formData.append('catalog_number', values.catalog_number);
-      formData.append('chip_type', values.chip_type);
-      formData.append('comment', values.comment);
-      formData.append(
-        'expiration_date',
-        values.expiration_date.format('YYYY-MM-DD')
-      );
-      formData.append('gsm_operator', values.gsm_operator);
-      formData.append('magnetic_stripe_width', values.magnetic_stripe_width);
-      formData.append('material_type', values.material_type);
+      formData.append('type', values.type);
       formData.append('name', values.name);
-      formData.append('nr_of_pulses', values.nr_of_pulses);
-      formData.append('number_printype', values.number_printype);
-      formData.append('number_type', values.number_type);
-      formData.append('prefix', values.prefix);
-      formData.append('price', values.price);
-      formData.append('printed_amount', values.printed_amount);
-      formData.append('producer', values.producer);
-      formData.append(
-        'production_date',
-        values.production_date.format('YYYY-MM-DD')
-      );
-      formData.append('publisher', values.publisher);
-      formData.append('producer', values.producer);
-      formData.append('series', values.series);
-      formData.append('shape', values.shape);
       formData.append('status', values.status);
-      formData.append('surface_type', values.surface_type);
+
+      if (values.catalog_number) {
+        formData.append('catalog_number', values.catalog_number);
+      }
+      if (values.chip_type) {
+        formData.append('chip_type', values.chip_type);
+      }
+      if (values.comment) {
+        formData.append('comment', values.comment);
+      }
+      if (values.expiration_date) {
+        formData.append(
+          'expiration_date',
+          values.expiration_date.format('YYYY-MM-DD')
+        );
+      }
+      if (values.gsm_operator) {
+        formData.append('gsm_operator', values.gsm_operator);
+      }
+      if (values.magnetic_stripe_width) {
+        formData.append('magnetic_stripe_width', values.magnetic_stripe_width);
+      }
+      if (values.material_type) {
+        formData.append('material_type', values.material_type);
+      }
+      if (values.nr_of_pulses) {
+        formData.append('nr_of_pulses', values.nr_of_pulses);
+      }
+      if (values.number_printype) {
+        formData.append('number_printype', values.number_printype);
+      }
+      if (values.number_type) {
+        formData.append('number_type', values.number_type);
+      }
+      if (values.prefix) {
+        formData.append('prefix', values.prefix);
+      }
+      if (values.price) {
+        formData.append('price', values.price);
+      }
+      if (values.value) {
+        formData.append('value', values.value);
+      }
+      if (values.printed_amount) {
+        formData.append('printed_amount', values.printed_amount);
+      }
+      if (values.producer) {
+        formData.append('producer', values.producer);
+      }
+      if (values.production_date) {
+        formData.append(
+          'production_date',
+          values.production_date.format('YYYY-MM-DD')
+        );
+      }
+      if (values.publisher) {
+        formData.append('publisher', values.publisher);
+      }
+      if (values.producer) {
+        formData.append('producer', values.producer);
+      }
+      if (values.series) {
+        formData.append('series', values.series);
+      }
+      if (values.shape) {
+        formData.append('shape', values.shape);
+      }
+      if (values.surface_type) {
+        formData.append('surface_type', values.surface_type);
+      }
 
       cardsService
         .create(formData)
@@ -206,11 +251,23 @@ export const CardCreate = () => {
                     </Col>
                     <Col xs={24} md={12}>
                       <Form.Item
-                        name='catalog_number'
-                        label='Numer katalogowy'
+                        name='type'
+                        label='Typ'
                         rules={[{ required: true, message: 'Pole wymagane' }]}
                       >
-                        <Input placeholder='Numer katalogowy' />
+                        <Select placeholder='Typ'>
+                          <Option value='MAGNETIC'>MAGNETYCZNE</Option>
+                          <Option value='CHIP'>CHIPOWE</Option>
+                          <Option value='GSM'>GSM</Option>
+                          <Option value='ASSOCIATED_WITH_TELEPHONY'>
+                            POWIĄZANE Z TELEFONIĄ
+                          </Option>
+                          <Option value='OTHER_TOP_UPS'>
+                            DOŁADOWANIA RÓŻNE
+                          </Option>
+                          <Option value='POLONIA'>KARTY POLONIJNE</Option>
+                          <Option value='OTHER'>INNE</Option>
+                        </Select>
                       </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
@@ -224,15 +281,6 @@ export const CardCreate = () => {
                           <Option value='MISSING'>BRAK</Option>
                           <Option value='EXCESS'>NADWYŻKA</Option>
                         </Select>
-                      </Form.Item>
-                    </Col>
-                    <Col xs={24} md={12}>
-                      <Form.Item
-                        name='comment'
-                        label='Komentarz'
-                        rules={[{ required: true, message: 'Pole wymagane' }]}
-                      >
-                        <Input placeholder='Komentarz' />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -250,21 +298,19 @@ export const CardCreate = () => {
                   INFORMACJE DODATKOWE
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='printed_amount'
-                    label='Nakład'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='catalog_number' label='Numer katalogowy'>
+                    <Input placeholder='Numer katalogowy' />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Form.Item name='printed_amount' label='Nakład'>
                     <Input placeholder='Nakład' />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='nr_of_pulses'
-                    label='Liczba impulsów'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='nr_of_pulses' label='Liczba impulsów'>
                     <Select placeholder='Liczba impulsów'>
+                      <Option value=''>-</Option>
                       <Option value='5'>5</Option>
                       <Option value='10'>10</Option>
                       <Option value='15'>15</Option>
@@ -280,21 +326,12 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='price'
-                    label='Nominał'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='price' label='Nominał'>
                     <Input placeholder='Nominał' />
                   </Form.Item>
                 </Col>
-                <Col xs={0} md={12} />
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='production_date'
-                    label='Data produkcji'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='production_date' label='Data produkcji'>
                     <DatePicker
                       placeholder='Data produkcji'
                       style={{ width: '100%' }}
@@ -302,11 +339,7 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='expiration_date'
-                    label='Data ważności'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='expiration_date' label='Data ważności'>
                     <DatePicker
                       placeholder='Data ważności'
                       style={{ width: '100%' }}
@@ -314,39 +347,24 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='series'
-                    label='Seria'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='series' label='Seria'>
                     <Input placeholder='Seria' />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='prefix'
-                    label='Prefix'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='prefix' label='Prefix'>
                     <Input placeholder='Prefix' />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='producer'
-                    label='Producent'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='producer' label='Producent'>
                     <Input placeholder='Producent' />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='material_type'
-                    label='Rodzaj materiału'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='material_type' label='Rodzaj materiału'>
                     <Select placeholder='Rodzaj materiału'>
+                      <Option value=''>-</Option>
                       <Option value='CARTOON'>KARTON</Option>
                       <Option value='PLASTIC'>PLASTIK</Option>
                       <Option value='OTHER'>INNY</Option>
@@ -354,12 +372,9 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='shape'
-                    label='Kształt'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='shape' label='Kształt'>
                     <Select placeholder='Kształt'>
+                      <Option value=''>-</Option>
                       <Option value='RECTANGLE'>PROSTOKĄT</Option>
                       <Option value='CIRCLE'>KOŁO</Option>
                       <Option value='HEART'>SERCE</Option>
@@ -368,12 +383,9 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='surface_type'
-                    label='Rodzaj powierzchni'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='surface_type' label='Rodzaj powierzchni'>
                     <Select placeholder='Rodzaj powierzchni'>
+                      <Option value=''>-</Option>
                       <Option value='MAT'>MATOWA</Option>
                       <Option value='GLOSS'>BŁYSZCZĄCA</Option>
                       <Option value='COATED'>LAKIEROWANA</Option>
@@ -386,9 +398,9 @@ export const CardCreate = () => {
                   <Form.Item
                     name='number_printype'
                     label='Sposób naniesienia numeru'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
                   >
                     <Select placeholder='Sposób naniesienia numeru'>
+                      <Option value=''>-</Option>
                       <Option value='EMBOSSED_HORIZONTAL'>
                         TŁOCZONY POZIOMY
                       </Option>
@@ -405,11 +417,7 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='number_type'
-                    label='Rodzaj numeru'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='number_type' label='Rodzaj numeru'>
                     <Input placeholder='Rodzaj numeru' />
                   </Form.Item>
                 </Col>
@@ -417,18 +425,14 @@ export const CardCreate = () => {
                   <Form.Item
                     name='magnetic_stripe_width'
                     label='Szerokość paska magnetycznego'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
                   >
                     <Input placeholder='Szerokość paska magnetycznego' />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='gsm_operator'
-                    label='Sieć komórkowa'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='gsm_operator' label='Sieć komórkowa'>
                     <Select placeholder='Sieć komórkowa'>
+                      <Option value=''>-</Option>
                       <Option value='ERA'>ERA</Option>
                       <Option value='TAK_TAK'>TAK TAK</Option>
                       <Option value='IDEA'>IDEA</Option>
@@ -445,12 +449,9 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='chip_type'
-                    label='Rodzaj chipa'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='chip_type' label='Rodzaj chipa'>
                     <Select placeholder='Rodzaj chipa'>
+                      <Option value=''>-</Option>
                       <Option value='MANUFACTURER'>PRODUCENT</Option>
                       <Option value='PATTERN'>WZÓR</Option>
                       <Option value='IMAGE'>OBRAZ</Option>
@@ -458,12 +459,13 @@ export const CardCreate = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item
-                    name='publisher'
-                    label='Wydawca'
-                    rules={[{ required: true, message: 'Pole wymagane' }]}
-                  >
+                  <Form.Item name='publisher' label='Wydawca'>
                     <Input placeholder='Wydawca' />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Form.Item name='comment' label='Komentarz'>
+                    <Input placeholder='Komentarz' />
                   </Form.Item>
                 </Col>
               </Row>

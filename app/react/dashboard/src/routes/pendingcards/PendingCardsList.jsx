@@ -5,12 +5,20 @@ import { Table, Button } from 'antd';
 
 import { usePendingCardsList } from '../../api/usePendingCardsList';
 import { CardsFilterModal } from '../../common/components/CardsFilterModal';
+import { getCardTypeName } from '../../utils/getCardTypeName';
 
 const columns = [
   {
     title: 'Nazwa karty',
     dataIndex: 'name',
     key: 'name',
+    sorter: true,
+  },
+  {
+    title: 'Typ',
+    dataIndex: 'type',
+    key: 'type',
+    render: (text, record, index) => getCardTypeName(text),
     sorter: true,
   },
   {

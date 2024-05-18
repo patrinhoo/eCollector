@@ -11,7 +11,7 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['email', 'name']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (None, {'fields': ('name', 'fields_to_show')}),
+        (None, {'fields': ('name',)}),
         (
             _('Permissions'),
             {
@@ -19,6 +19,33 @@ class UserAdmin(BaseUserAdmin):
                     'is_active',
                     'is_staff',
                     'is_superuser',
+                )
+            }
+        ),
+        (
+            _('Settings'),
+            {
+                'fields': (
+                    'catalog_number',
+                    'expiration_date',
+                    'gsm_operator',
+                    'magnetic_stripe_width',
+                    'material_type',
+                    'nr_of_pulses',
+                    'number_printype',
+                    'number_type',
+                    'prefix',
+                    'price',
+                    'value',
+                    'printed_amount',
+                    'producer',
+                    'production_date',
+                    'publisher',
+                    'series',
+                    'shape',
+                    'surface_type',
+                    'chip_type',
+                    'comment',
                 )
             }
         ),

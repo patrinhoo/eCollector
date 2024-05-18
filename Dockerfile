@@ -2,11 +2,17 @@ FROM python:3.12.1-alpine
 
 ENV PYTHONUNBUFFERED 1
 
+RUN apk add --virtual .react-deps nodejs npm
+
+COPY ./app/react/dashboard/package.json /app/react/dashboard/package.json
+WORKDIR /app/react/dashboard
+RUN npm install
+
+WORKDIR /
 COPY ./requirements.txt /requirements.txt
-COPY ./app /app
 COPY ./scripts /scripts
 
-RUN apk add --virtual .react-deps nodejs npm
+RUN mkdir -p /app
 
 WORKDIR /app
 EXPOSE 8000
@@ -25,9 +31,10 @@ RUN python -m venv /py && \
     chmod -R 755 /vol && \
     chmod -R +x /scripts
 
-WORKDIR /app/react/dashboard
+WORKDIR /
+COPY ./app /app
 
-RUN npm install
+WORKDIR /app/react/dashboard
 RUN npm run build
 
 WORKDIR /app

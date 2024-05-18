@@ -4,6 +4,7 @@ import { Spin, Row, Col, Card, Button, message, Modal } from 'antd';
 
 import { useSingleCard } from '../../api/useSingleCard';
 import { cardsService } from '../../api/cardsService';
+import { getCardTypeName } from '../../utils/getCardTypeName';
 import { getCardStatusName } from '../../utils/getCardStatusName';
 import { getMaterialTypeName } from '../../utils/getMaterialTypeName';
 import { getCardShapeName } from '../../utils/getCardShapeName';
@@ -123,10 +124,10 @@ export const CardShow = () => {
                             xs={8}
                             className='tw-text-right tw-text-yellow-medium'
                           >
-                            Numer katalogowy:
+                            Typ:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.catalog_number}
+                            {getCardTypeName(cardData.type)}
                           </Col>
                         </Row>
                       </Col>
@@ -140,19 +141,6 @@ export const CardShow = () => {
                           </Col>
                           <Col xs={16} className='tw-italic'>
                             {getCardStatusName(cardData.status)}
-                          </Col>
-                        </Row>
-                      </Col>
-                      <Col xs={24}>
-                        <Row gutter={20}>
-                          <Col
-                            xs={8}
-                            className='tw-text-right tw-text-yellow-medium'
-                          >
-                            Komentarz:
-                          </Col>
-                          <Col xs={16} className='tw-italic'>
-                            {cardData.comment}
                           </Col>
                         </Row>
                       </Col>
@@ -175,10 +163,27 @@ export const CardShow = () => {
                             xs={8}
                             className='tw-text-right tw-text-yellow-medium'
                           >
+                            Numer katalogowy:
+                          </Col>
+                          <Col xs={16} className='tw-italic'>
+                            {cardData.catalog_number
+                              ? cardData.catalog_number
+                              : '-'}
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col xs={24}>
+                        <Row gutter={20}>
+                          <Col
+                            xs={8}
+                            className='tw-text-right tw-text-yellow-medium'
+                          >
                             Nakład:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.printed_amount}
+                            {cardData.printed_amount
+                              ? cardData.printed_amount
+                              : '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -191,7 +196,7 @@ export const CardShow = () => {
                             Liczba impulsów:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.nr_of_pulses}
+                            {cardData.nr_of_pulses ?? '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -204,7 +209,20 @@ export const CardShow = () => {
                             Nominał:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.price}
+                            {cardData.price ?? '-'}
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col xs={24}>
+                        <Row gutter={20}>
+                          <Col
+                            xs={8}
+                            className='tw-text-right tw-text-yellow-medium'
+                          >
+                            Wartość:
+                          </Col>
+                          <Col xs={16} className='tw-italic'>
+                            {cardData.value ?? '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -217,7 +235,7 @@ export const CardShow = () => {
                             Data produkcji:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.production_date}
+                            {cardData.production_date ?? '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -230,7 +248,7 @@ export const CardShow = () => {
                             Data ważności:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.expiration_date}
+                            {cardData.expiration_date ?? '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -243,7 +261,7 @@ export const CardShow = () => {
                             Seria:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.series}
+                            {cardData.series ? cardData.series : '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -256,7 +274,7 @@ export const CardShow = () => {
                             Prefix:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.prefix}
+                            {cardData.prefix ?? '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -269,7 +287,7 @@ export const CardShow = () => {
                             Producent:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.producer}
+                            {cardData.producer ? cardData.producer : '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -334,7 +352,7 @@ export const CardShow = () => {
                             Rodzaj numeru:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.number_type}
+                            {cardData.number_type ? cardData.number_type : '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -347,7 +365,9 @@ export const CardShow = () => {
                             Szerokość paska magnetycznego:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.magnetic_stripe_width}
+                            {cardData.magnetic_stripe_width
+                              ? cardData.magnetic_stripe_width
+                              : '-'}
                           </Col>
                         </Row>
                       </Col>
@@ -386,7 +406,20 @@ export const CardShow = () => {
                             Wydawca:
                           </Col>
                           <Col xs={16} className='tw-italic'>
-                            {cardData.publisher}
+                            {cardData.publisher ? cardData.publisher : '-'}
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col xs={24}>
+                        <Row gutter={20}>
+                          <Col
+                            xs={8}
+                            className='tw-text-right tw-text-yellow-medium'
+                          >
+                            Komentarz:
+                          </Col>
+                          <Col xs={16} className='tw-italic'>
+                            {cardData.comment ? cardData.comment : '-'}
                           </Col>
                         </Row>
                       </Col>
