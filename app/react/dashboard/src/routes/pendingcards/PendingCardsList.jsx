@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Table, Button } from 'antd';
+import { Table, Button, Image } from 'antd';
 
 import { usePendingCardsList } from '../../api/usePendingCardsList';
 import { CardsFilterModal } from '../../common/components/CardsFilterModal';
@@ -26,11 +26,14 @@ const columns = [
     dataIndex: 'awers',
     key: 'awers',
     render: (text, record, index) => (
-      <img
-        className='tw-mx-auto'
+      <Image
+        className='tw-mx-auto tw-cursor-pointer'
         src={text}
         alt='awers'
         style={{ height: 100 }}
+        preview={{
+          mask: false,
+        }}
       />
     ),
   },
@@ -39,11 +42,14 @@ const columns = [
     dataIndex: 'rewers',
     key: 'rewers',
     render: (text, record, index) => (
-      <img
-        className='tw-mx-auto'
+      <Image
+        className='tw-mx-auto tw-cursor-pointer'
         src={text}
         alt='rewers'
         style={{ height: 100 }}
+        preview={{
+          mask: false,
+        }}
       />
     ),
   },
