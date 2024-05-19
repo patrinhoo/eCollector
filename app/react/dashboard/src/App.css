@@ -54,6 +54,10 @@
   color: #b1cade !important;
 }
 
+.ant-table-cell {
+  text-align: center !important;
+}
+
 @media only screen and (min-width: 640px) {
   .form-actions {
     width: calc(100% - 200px);
