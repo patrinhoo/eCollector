@@ -80,25 +80,91 @@ class UpgradePendingCardViewSet(viewsets.ViewSet):
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = models.Card.objects.all()
+    serializer_class = serializers.CardSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser, FormParser)
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['name', 'type']
-    search_fields = ['name', 'type']
-    ordering_fields = ['id', 'name', 'type', 'status']
+    filterset_fields = [
+        'name', 
+        'type',
+        'status',
+        'catalog_number',
+        'printed_amount',
+        'nr_of_pulses',
+        'price',
+        'value',
+        'production_date',
+        'expiration_date',
+        'series',
+        'prefix',
+        'producer',
+        'material_type',
+        'shape',
+        'surface_type',
+        'number_printype',
+        'number_type',
+        'magnetic_stripe_width',
+        'gsm_operator',
+        'chip_type',
+        'publisher',
+    ]
+    search_fields = [
+        'name', 
+        'type',
+        'status',
+        'catalog_number',
+        'printed_amount',
+        'nr_of_pulses',
+        'price',
+        'value',
+        'production_date',
+        'expiration_date',
+        'series',
+        'prefix',
+        'producer',
+        'material_type',
+        'shape',
+        'surface_type',
+        'number_printype',
+        'number_type',
+        'magnetic_stripe_width',
+        'gsm_operator',
+        'chip_type',
+        'publisher',
+    ]
+    ordering_fields = [
+        'id', 
+        'name', 
+        'type',
+        'status',
+        'catalog_number',
+        'printed_amount',
+        'nr_of_pulses',
+        'price',
+        'value',
+        'production_date',
+        'expiration_date',
+        'series',
+        'prefix',
+        'producer',
+        'material_type',
+        'shape',
+        'surface_type',
+        'number_printype',
+        'number_type',
+        'magnetic_stripe_width',
+        'gsm_operator',
+        'chip_type',
+        'publisher',
+    ]
     ordering = ['-id']
 
     def get_queryset(self):
         queryset = super().get_queryset()
         
         return queryset.filter(user=self.request.user).distinct()
-
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return serializers.CardListSerializer
-        return serializers.CardSerializer
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

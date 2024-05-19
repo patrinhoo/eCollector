@@ -26,7 +26,12 @@ const columns = [
     dataIndex: 'awers',
     key: 'awers',
     render: (text, record, index) => (
-      <img src={text} alt='awers' style={{ height: 100 }} />
+      <img
+        className='tw-mx-auto'
+        src={text}
+        alt='awers'
+        style={{ height: 100 }}
+      />
     ),
   },
   {
@@ -34,7 +39,12 @@ const columns = [
     dataIndex: 'rewers',
     key: 'rewers',
     render: (text, record, index) => (
-      <img src={text} alt='rewers' style={{ height: 100 }} />
+      <img
+        className='tw-mx-auto'
+        src={text}
+        alt='rewers'
+        style={{ height: 100 }}
+      />
     ),
   },
   {
@@ -78,7 +88,12 @@ export const PendingCardsList = () => {
   }, []);
 
   const handleFilterChange = useCallback((filters) => {
-    setIsFiltered(true);
+    if (Object.keys(filters).length === 0) {
+      setIsFiltered(false);
+    } else {
+      setIsFiltered(true);
+    }
+
     setParams(filters);
   }, []);
 

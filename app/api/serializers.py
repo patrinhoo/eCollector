@@ -97,9 +97,3 @@ class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Card
         exclude = ['user']
-
-
-class CardListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Card
-        fields = ['id', 'name', 'type', 'status', 'comment', 'awers', 'rewers']

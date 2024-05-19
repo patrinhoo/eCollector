@@ -167,8 +167,7 @@ export const PendingCardUpgrade = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item name='nr_of_pulses' label='Liczba impulsów'>
-                      <Select placeholder='Liczba impulsów'>
-                        <Option value=''>-</Option>
+                      <Select placeholder='Liczba impulsów' allowClear>
                         <Option value='5'>5</Option>
                         <Option value='10'>10</Option>
                         <Option value='15'>15</Option>
@@ -221,8 +220,7 @@ export const PendingCardUpgrade = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item name='material_type' label='Rodzaj materiału'>
-                      <Select placeholder='Rodzaj materiału'>
-                        <Option value=''>-</Option>
+                      <Select placeholder='Rodzaj materiału' allowClear>
                         <Option value='CARTOON'>KARTON</Option>
                         <Option value='PLASTIC'>PLASTIK</Option>
                         <Option value='OTHER'>INNY</Option>
@@ -231,8 +229,7 @@ export const PendingCardUpgrade = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item name='shape' label='Kształt'>
-                      <Select placeholder='Kształt'>
-                        <Option value=''>-</Option>
+                      <Select placeholder='Kształt' allowClear>
                         <Option value='RECTANGLE'>PROSTOKĄT</Option>
                         <Option value='CIRCLE'>KOŁO</Option>
                         <Option value='HEART'>SERCE</Option>
@@ -242,8 +239,7 @@ export const PendingCardUpgrade = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item name='surface_type' label='Rodzaj powierzchni'>
-                      <Select placeholder='Rodzaj powierzchni'>
-                        <Option value=''>-</Option>
+                      <Select placeholder='Rodzaj powierzchni' allowClear>
                         <Option value='MAT'>MATOWA</Option>
                         <Option value='GLOSS'>BŁYSZCZĄCA</Option>
                         <Option value='COATED'>LAKIEROWANA</Option>
@@ -257,8 +253,10 @@ export const PendingCardUpgrade = () => {
                       name='number_printype'
                       label='Sposób naniesienia numeru'
                     >
-                      <Select placeholder='Sposób naniesienia numeru'>
-                        <Option value=''>-</Option>
+                      <Select
+                        placeholder='Sposób naniesienia numeru'
+                        allowClear
+                      >
                         <Option value='EMBOSSED_HORIZONTAL'>
                           TŁOCZONY POZIOMY
                         </Option>
@@ -289,8 +287,7 @@ export const PendingCardUpgrade = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item name='gsm_operator' label='Sieć komórkowa'>
-                      <Select placeholder='Sieć komórkowa'>
-                        <Option value=''>-</Option>
+                      <Select placeholder='Sieć komórkowa' allowClear>
                         <Option value='ERA'>ERA</Option>
                         <Option value='TAK_TAK'>TAK TAK</Option>
                         <Option value='IDEA'>IDEA</Option>
@@ -308,8 +305,7 @@ export const PendingCardUpgrade = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item name='chip_type' label='Rodzaj chipa'>
-                      <Select placeholder='Rodzaj chipa'>
-                        <Option value=''>-</Option>
+                      <Select placeholder='Rodzaj chipa' allowClear>
                         <Option value='MANUFACTURER'>PRODUCENT</Option>
                         <Option value='PATTERN'>WZÓR</Option>
                         <Option value='IMAGE'>OBRAZ</Option>
