@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Table, Button } from 'antd';
+import { Table, Button, Image } from 'antd';
 
 import { useCardsList } from '../../api/useCardsList';
 import { getCardTypeName } from '../../utils/getCardTypeName';
@@ -36,11 +36,14 @@ const defaultColumns = [
     dataIndex: 'awers',
     key: 'awers',
     render: (text, record, index) => (
-      <img
-        className='tw-mx-auto'
+      <Image
+        className='tw-mx-auto tw-cursor-pointer'
         src={text}
         alt='awers'
         style={{ height: 100 }}
+        preview={{
+          mask: false,
+        }}
       />
     ),
   },
@@ -49,11 +52,14 @@ const defaultColumns = [
     dataIndex: 'rewers',
     key: 'rewers',
     render: (text, record, index) => (
-      <img
-        className='tw-mx-auto'
+      <Image
+        className='tw-mx-auto tw-cursor-pointer'
         src={text}
         alt='rewers'
         style={{ height: 100 }}
+        preview={{
+          mask: false,
+        }}
       />
     ),
   },

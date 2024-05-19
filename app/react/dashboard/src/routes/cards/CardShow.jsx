@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Spin, Row, Col, Card, Button, message, Modal } from 'antd';
+import { Spin, Row, Col, Card, Button, message, Modal, Image } from 'antd';
 
 import { useSingleCard } from '../../api/useSingleCard';
 import { cardsService } from '../../api/cardsService';
@@ -75,20 +75,26 @@ export const CardShow = () => {
                     <div className='tw-text-md tw-font-semibold tw-text-center tw-text-black-dark tw-mb-4'>
                       AWERS
                     </div>
-                    <img
+                    <Image
                       src={cardData.awers}
                       alt='AWERS'
-                      className='tw-w-full tw-border-black-dark tw-border-2 tw-rounded-lg tw-p-4'
+                      className='tw-w-full tw-border-black-dark tw-border-2 tw-rounded-lg tw-cursor-pointer'
+                      preview={{
+                        mask: false,
+                      }}
                     />
                   </Col>
                   <Col xs={12}>
                     <div className='tw-text-md tw-font-semibold tw-text-center tw-text-gray-mediumDark tw-mb-4'>
                       REWERS
                     </div>
-                    <img
+                    <Image
                       src={cardData.rewers}
                       alt='REWERS'
-                      className='tw-w-full tw-border-gray-mediumDark tw-border-2 tw-rounded-lg tw-p-4'
+                      className='tw-w-full tw-border-gray-mediumDark tw-border-2 tw-rounded-lg tw-cursor-pointer'
+                      preview={{
+                        mask: false,
+                      }}
                     />
                   </Col>
                 </Row>
