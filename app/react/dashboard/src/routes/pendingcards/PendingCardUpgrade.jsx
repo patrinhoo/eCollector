@@ -14,13 +14,15 @@ import {
   Image,
 } from 'antd';
 
+import classNames from 'classnames';
+
 import { pendingCardsService } from '../../api/pendingCardsService';
 import { useSinglePendingCard } from '../../api/useSinglePendingCard';
 import { getCardTypeName } from '../../utils/getCardTypeName';
 
 const { Option } = Select;
 
-export const PendingCardUpgrade = () => {
+export const PendingCardUpgrade = ({ collapsed }) => {
   const { pendingCardId } = useParams();
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -333,7 +335,14 @@ export const PendingCardUpgrade = () => {
               </Card>
             </Col>
             <Col>
-              <Row className='form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6'>
+              <Row
+                className={classNames(
+                  'form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6',
+                  {
+                    'form-actions-collapsed': collapsed,
+                  }
+                )}
+              >
                 <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
                   <Button size='large' onClick={handleCancel}>
                     Anuluj

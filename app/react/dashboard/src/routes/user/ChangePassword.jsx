@@ -2,9 +2,11 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Card, Row, Col, Input, Button, message } from 'antd';
 
+import classNames from 'classnames';
+
 import { userService } from '../../api/userService';
 
-export const ChangePassword = () => {
+export const ChangePassword = ({ collapsed }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -106,7 +108,14 @@ export const ChangePassword = () => {
           </Col>
 
           <Col>
-            <Row className='form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6'>
+            <Row
+              className={classNames(
+                'form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6',
+                {
+                  'form-actions-collapsed': collapsed,
+                }
+              )}
+            >
               <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
                 <Button size='large' onClick={handleCancel}>
                   Anuluj
