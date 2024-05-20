@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from 'antd';
 
@@ -18,21 +18,35 @@ import { MyAccount } from '../routes/user/MyAccount';
 import { ChangePassword } from '../routes/user/ChangePassword';
 import { Settings } from '../routes/user/Settings';
 
+import classNames from 'classnames';
+
 const { Content } = Layout;
 
 export const LoggedLayout = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <LoggedMenu />
+      <LoggedMenu collapsed={collapsed} setCollapsed={setCollapsed} />
 
-      <Content>
-        <LoggedHeader />
+      <Content
+        className={classNames('tw-pt-16', {
+          'ant-layout-content-collapsed': collapsed,
+        })}
+      >
+        <LoggedHeader collapsed={collapsed} />
 
         <Routes>
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/cards/create' element={<CardCreate />} />
+          <Route
+            path='/cards/create'
+            element={<CardCreate collapsed={collapsed} />}
+          />
           <Route path='/cards/:cardId/show' element={<CardShow />} />
-          <Route path='/cards/:cardId/edit' element={<CardEdit />} />
+          <Route
+            path='/cards/:cardId/edit'
+            element={<CardEdit collapsed={collapsed} />}
+          />
 
           <Route path='/pendingCards' element={<PendingCardsList />} />
           <Route
@@ -41,12 +55,21 @@ export const LoggedLayout = () => {
           />
           <Route
             path='/pendingCards/:pendingCardId/upgrade'
-            element={<PendingCardUpgrade />}
+            element={<PendingCardUpgrade collapsed={collapsed} />}
           />
 
-          <Route path='/myAccount' element={<MyAccount />} />
-          <Route path='/changePassword' element={<ChangePassword />} />
-          <Route path='/settings' element={<Settings />} />
+          <Route
+            path='/myAccount'
+            element={<MyAccount collapsed={collapsed} />}
+          />
+          <Route
+            path='/changePassword'
+            element={<ChangePassword collapsed={collapsed} />}
+          />
+          <Route
+            path='/settings'
+            element={<Settings collapsed={collapsed} />}
+          />
 
           <Route exact path='/' element={<Navigate to={'/login'} replace />} />
           <Route exact path='*' element={<Navigate to={'/404'} replace />} />

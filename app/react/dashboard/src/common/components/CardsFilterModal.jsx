@@ -108,7 +108,7 @@ export const CardsFilterModal = ({
 
       hideModal();
     });
-  }, [form, hideModal, handleFilterChange, isPendingCard]);
+  }, [form, hideModal, handleFilterChange]);
 
   return (
     <>

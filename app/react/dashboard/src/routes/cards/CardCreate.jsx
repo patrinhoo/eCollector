@@ -14,11 +14,13 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
+import classNames from 'classnames';
+
 import { cardsService } from '../../api/cardsService';
 
 const { Option } = Select;
 
-export const CardCreate = () => {
+export const CardCreate = ({ collapsed }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -465,7 +467,14 @@ export const CardCreate = () => {
             </Card>
           </Col>
           <Col>
-            <Row className='form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6'>
+            <Row
+              className={classNames(
+                'form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6',
+                {
+                  'form-actions-collapsed': collapsed,
+                }
+              )}
+            >
               <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
                 <Button size='large' onClick={handleCancel}>
                   Anuluj

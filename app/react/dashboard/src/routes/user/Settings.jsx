@@ -1,22 +1,14 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Spin,
-  Form,
-  Card,
-  Row,
-  Col,
-  Input,
-  Button,
-  message,
-  Checkbox,
-} from 'antd';
+import { Spin, Form, Card, Row, Col, Button, message, Checkbox } from 'antd';
+
+import classNames from 'classnames';
 
 import { GlobalContext } from '../../store/Provider';
 import { getSettings } from '../../store/actions/settings/getSettings';
 import { updateSettings } from '../../store/actions/settings/updateSettings';
 
-export const Settings = () => {
+export const Settings = ({ collapsed }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const { settingsState, settingsDispatch } = useContext(GlobalContext);
@@ -264,7 +256,14 @@ export const Settings = () => {
               </Col>
 
               <Col>
-                <Row className='form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6'>
+                <Row
+                  className={classNames(
+                    'form-actions tw-fixed tw-bottom-0 tw-bg-white tw-px-12 tw-py-6',
+                    {
+                      'form-actions-collapsed': collapsed,
+                    }
+                  )}
+                >
                   <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
                     <Button size='large' onClick={handleCancel}>
                       Anuluj

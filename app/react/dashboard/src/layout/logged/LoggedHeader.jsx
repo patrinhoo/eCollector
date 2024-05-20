@@ -27,7 +27,7 @@ export const LoggedHeader = () => {
   );
 
   return (
-    <div className='tw-flex tw-text-3xl tw-h-16 tw-bg-gray-medium tw-justify-end tw-pr-8'>
+    <div className='tw-fixed tw-left-0 tw-top-0 tw-w-full tw-flex tw-text-3xl tw-h-16 tw-bg-gray-medium tw-px-8 tw-justify-end tw-z-50'>
       <div className='tw-flex tw-items-center tw-cursor-pointer tw-text-gray-dark hover:tw-text-gray-darker'>
         <Dropdown
           menu={{
