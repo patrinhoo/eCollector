@@ -11,8 +11,8 @@ ENV APP_PORT=9000
 
 USER root
 
-RUN apk add --no-cache openssl bash && \
-    mkdir -p /vol/static && \
+RUN apk add --no-cache openssl bash
+RUN mkdir -p /vol/static && \
     chmod 755 /vol/static && \
     touch /etc/nginx/conf.d/default.conf && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf && \
@@ -20,7 +20,5 @@ RUN apk add --no-cache openssl bash && \
 
 VOLUME /vol/static
 VOLUME /vol/www
-
-USER nginx
 
 CMD ["/run.sh"]
