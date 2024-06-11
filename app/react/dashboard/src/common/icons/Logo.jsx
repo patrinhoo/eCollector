@@ -4,6 +4,7 @@ export const Logo = ({ width = 279, height = 247, ...props }) => (
   <svg
     width={width}
     height={height}
+    className='logo'
     viewBox='0 0 279 247'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
