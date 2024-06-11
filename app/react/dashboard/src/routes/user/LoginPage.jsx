@@ -88,6 +88,11 @@ export const LoginPage = () => {
           Sign up!
         </Link>
       </div>
+      <div className='tw-pt-10 tw-font-semibold tw-italic tw-text-gray-mediumDark/50'>
+        <div>You can try using test account:</div>
+        <div>textuser@example.com</div>
+        <div>testpw123</div>
+      </div>
     </div>
   );
 };

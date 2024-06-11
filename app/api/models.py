@@ -200,11 +200,6 @@ class Card(models.Model):
 
     chip_type = models.CharField(max_length=32, choices=ChipTypes, blank=True)
 
-    # sim_cardtype_number = models.CharField(max_length=32)
-    # sim_cardtype_image = models.ImageField(upload_to=card_image_file_path)
-    # sim_damage_number = models.CharField(max_length=32)
-    # sim_damage_image = models.ImageField(upload_to=card_image_file_path)
-
     publisher = models.CharField(max_length=64, blank=True)
 
     class Status(models.TextChoices):
