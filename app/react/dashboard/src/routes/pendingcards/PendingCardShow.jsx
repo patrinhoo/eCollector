@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Spin, Row, Col, Card, Button, message, Modal, Image } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { useSinglePendingCard } from '../../api/useSinglePendingCard';
 import { pendingCardsService } from '../../api/pendingCardsService';
@@ -52,9 +53,15 @@ export const PendingCardShow = () => {
               to={`/pendingCards/${pendingCardId}/upgrade`}
               className='tw-mr-4'
             >
-              <Button>UZUPEŁNIJ</Button>
+              <Button type='primary' icon={<EditOutlined />}>
+                UZUPEŁNIJ
+              </Button>
             </Link>
-            <Button type='danger' onClick={deleteHandler}>
+            <Button
+              type='danger'
+              onClick={deleteHandler}
+              icon={<DeleteOutlined />}
+            >
               USUŃ
             </Button>
           </div>

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Spin, Row, Col, Card, Button, message, Modal, Image } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { useSingleCard } from '../../api/useSingleCard';
 import { cardsService } from '../../api/cardsService';
@@ -55,9 +56,15 @@ export const CardShow = () => {
           </div>
           <div className='tw-text-right tw-mb-4'>
             <Link to={`/cards/${cardId}/edit`} className='tw-mr-4'>
-              <Button>EDYTUJ</Button>
+              <Button type='primary' icon={<EditOutlined />}>
+                EDYTUJ
+              </Button>
             </Link>
-            <Button type='danger' onClick={deleteHandler}>
+            <Button
+              type='danger'
+              onClick={deleteHandler}
+              icon={<DeleteOutlined />}
+            >
               USUŃ
             </Button>
           </div>

@@ -13,6 +13,7 @@ import {
   Spin,
   Image,
 } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import classNames from 'classnames';
 
@@ -344,13 +345,19 @@ export const PendingCardUpgrade = ({ collapsed }) => {
                 )}
               >
                 <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
-                  <Button size='large' onClick={handleCancel}>
+                  <Button type='danger' size='large' onClick={handleCancel}>
                     Anuluj
                   </Button>
                 </Col>
                 <Col xs={12} className='tw-text-right' style={{ height: 40 }}>
                   <Form.Item>
-                    <Button size='large' htmlType='submit'>
+                    <Button
+                      className='ant-btn-green'
+                      type='primary'
+                      size='large'
+                      htmlType='submit'
+                      icon={<PlusOutlined />}
+                    >
                       Dodaj
                     </Button>
                   </Form.Item>

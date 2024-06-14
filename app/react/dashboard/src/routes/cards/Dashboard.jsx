@@ -1,7 +1,16 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Table, Button, Image } from 'antd';
+import { Table, Button, Image, Dropdown } from 'antd';
+import {
+  DownloadOutlined,
+  UploadOutlined,
+  PlusOutlined,
+  CloseOutlined,
+  FilterOutlined,
+  FileExcelOutlined,
+  FilePdfOutlined,
+} from '@ant-design/icons';
 
 import { useCardsList } from '../../api/useCardsList';
 import { getCardTypeName } from '../../utils/getCardTypeName';
@@ -365,10 +374,74 @@ export const Dashboard = () => {
         Moje karty
       </div>
       <div className='tw-flex tw-justify-end tw-mb-4 tw-gap-4'>
-        {isFiltered ? <Button onClick={removeFiltersHandler}>X</Button> : null}
-        <Button onClick={showFilterModal}>FILTRUJ</Button>
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: '1',
+                label: (
+                  <div>
+                    <span className='tw-mr-2'>
+                      <FilePdfOutlined />
+                    </span>
+                    Z PDF
+                  </div>
+                ),
+              },
+            ],
+          }}
+          placement='bottom'
+        >
+          <Button type='primary' icon={<UploadOutlined />}>
+            Importuj
+          </Button>
+        </Dropdown>
+
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: '1',
+                label: (
+                  <div>
+                    <span className='tw-mr-2'>
+                      <FilePdfOutlined />
+                    </span>
+                    Do PDF
+                  </div>
+                ),
+              },
+            ],
+          }}
+          placement='bottom'
+        >
+          <Button
+            className='ant-btn-orange'
+            type='primary'
+            icon={<DownloadOutlined />}
+          >
+            Eksportuj
+          </Button>
+        </Dropdown>
+
+        {isFiltered ? (
+          <Button
+            type='danger'
+            onClick={removeFiltersHandler}
+            icon={<CloseOutlined />}
+          />
+        ) : null}
+        <Button onClick={showFilterModal} icon={<FilterOutlined />}>
+          Filtruj
+        </Button>
         <Link to={'/cards/create'}>
-          <Button>+ DODAJ</Button>
+          <Button
+            className='ant-btn-green'
+            type='primary'
+            icon={<PlusOutlined />}
+          >
+            Dodaj
+          </Button>
         </Link>
       </div>
       <CardsFilterModal
