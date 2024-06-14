@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Table, Button, Image } from 'antd';
+import { CloseOutlined, FilterOutlined } from '@ant-design/icons';
 
 import { usePendingCardsList } from '../../api/usePendingCardsList';
 import { CardsFilterModal } from '../../common/components/CardsFilterModal';
@@ -122,8 +123,17 @@ export const PendingCardsList = () => {
         Oczekujące karty
       </div>
       <div className='tw-flex tw-justify-end tw-mb-4 tw-gap-4'>
-        {isFiltered ? <Button onClick={removeFiltersHandler}>X</Button> : null}
-        <Button onClick={showFilterModal}>FILTRUJ</Button>
+        {isFiltered ? (
+          <Button
+            type='danger'
+            onClick={removeFiltersHandler}
+            icon={<CloseOutlined />}
+          />
+        ) : null}
+
+        <Button onClick={showFilterModal} icon={<FilterOutlined />}>
+          Filtruj
+        </Button>
       </div>
       <CardsFilterModal
         isModalVisible={isModalVisible}

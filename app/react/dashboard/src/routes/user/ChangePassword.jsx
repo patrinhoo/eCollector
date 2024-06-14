@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Card, Row, Col, Input, Button, message } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
 
 import classNames from 'classnames';
 
@@ -117,13 +118,19 @@ export const ChangePassword = ({ collapsed }) => {
               )}
             >
               <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
-                <Button size='large' onClick={handleCancel}>
+                <Button type='danger' size='large' onClick={handleCancel}>
                   Anuluj
                 </Button>
               </Col>
               <Col xs={12} className='tw-text-right' style={{ height: 40 }}>
                 <Form.Item>
-                  <Button size='large' htmlType='submit'>
+                  <Button
+                    className='ant-btn-green'
+                    type='primary'
+                    size='large'
+                    htmlType='submit'
+                    icon={<SaveOutlined />}
+                  >
                     Zapisz
                   </Button>
                 </Form.Item>

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spin, Form, Card, Row, Col, Input, Button, message } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
 
 import classNames from 'classnames';
 
@@ -129,9 +130,9 @@ export const MyAccount = ({ collapsed }) => {
                     </Col>
                     <Col xs={24} className='tw-text-center'>
                       <Button
-                        className='tw-px-8'
+                        className='ant-btn-orange tw-px-8'
                         size='large'
-                        type='danger'
+                        type='primary'
                         onClick={handleChangePassword}
                       >
                         Zmień hasło
@@ -150,13 +151,19 @@ export const MyAccount = ({ collapsed }) => {
                   )}
                 >
                   <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
-                    <Button size='large' onClick={handleCancel}>
+                    <Button type='danger' size='large' onClick={handleCancel}>
                       Anuluj
                     </Button>
                   </Col>
                   <Col xs={12} className='tw-text-right' style={{ height: 40 }}>
                     <Form.Item>
-                      <Button size='large' htmlType='submit'>
+                      <Button
+                        className='ant-btn-green'
+                        type='primary'
+                        size='large'
+                        htmlType='submit'
+                        icon={<SaveOutlined />}
+                      >
                         Zapisz
                       </Button>
                     </Form.Item>

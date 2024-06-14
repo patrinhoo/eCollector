@@ -13,6 +13,7 @@ import {
   DatePicker,
   Upload,
 } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 import classNames from 'classnames';
@@ -534,13 +535,19 @@ export const CardEdit = ({ collapsed }) => {
                   )}
                 >
                   <Col xs={12} className='tw-text-left' style={{ height: 40 }}>
-                    <Button size='large' onClick={handleCancel}>
+                    <Button type='danger' size='large' onClick={handleCancel}>
                       Anuluj
                     </Button>
                   </Col>
                   <Col xs={12} className='tw-text-right' style={{ height: 40 }}>
                     <Form.Item>
-                      <Button size='large' htmlType='submit'>
+                      <Button
+                        className='ant-btn-green'
+                        type='primary'
+                        size='large'
+                        htmlType='submit'
+                        icon={<SaveOutlined />}
+                      >
                         Zapisz
                       </Button>
                     </Form.Item>

@@ -38,6 +38,26 @@
   background-color: #f94449;
 }
 
+.ant-btn-orange {
+  background-color: #c1c70e;
+}
+
+.ant-btn-orange:hover,
+.ant-btn-orange:active,
+.ant-btn-orange:focus {
+  background-color: rgba(193, 199, 14, 0.8) !important;
+}
+
+.ant-btn-green {
+  background-color: #15d55e;
+}
+
+.ant-btn-green:hover,
+.ant-btn-green:active,
+.ant-btn-green:focus {
+  background-color: rgba(21, 213, 94, 0.8) !important;
+}
+
 .ant-pagination-options {
   position: absolute;
   left: 0;
