@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'drf_spectacular',
+    'django_weasyprint',
 
     'api',
     'react'

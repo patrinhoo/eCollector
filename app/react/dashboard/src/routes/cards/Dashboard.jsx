@@ -8,7 +8,6 @@ import {
   PlusOutlined,
   CloseOutlined,
   FilterOutlined,
-  FileExcelOutlined,
   FilePdfOutlined,
 } from '@ant-design/icons';
 
@@ -374,7 +373,7 @@ export const Dashboard = () => {
         Moje karty
       </div>
       <div className='tw-flex tw-justify-end tw-mb-4 tw-gap-4'>
-        <Dropdown
+        {/* <Dropdown
           menu={{
             items: [
               {
@@ -395,7 +394,7 @@ export const Dashboard = () => {
           <Button type='primary' icon={<UploadOutlined />}>
             Importuj
           </Button>
-        </Dropdown>
+        </Dropdown> */}
 
         <Dropdown
           menu={{
@@ -403,12 +402,14 @@ export const Dashboard = () => {
               {
                 key: '1',
                 label: (
-                  <div>
-                    <span className='tw-mr-2'>
-                      <FilePdfOutlined />
-                    </span>
-                    Do PDF
-                  </div>
+                  <a href='/api/export/pdf' target='_blank'>
+                    <div>
+                      <span className='tw-mr-2'>
+                        <FilePdfOutlined />
+                      </span>
+                      Do PDF
+                    </div>
+                  </a>
                 ),
               },
             ],

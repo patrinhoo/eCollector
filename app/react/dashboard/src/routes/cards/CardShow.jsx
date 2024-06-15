@@ -57,7 +57,7 @@ export const CardShow = () => {
           <div className='tw-text-right tw-mb-4'>
             <Link to={`/cards/${cardId}/edit`} className='tw-mr-4'>
               <Button type='primary' icon={<EditOutlined />}>
-                EDYTUJ
+                Edytuj
               </Button>
             </Link>
             <Button
@@ -65,7 +65,7 @@ export const CardShow = () => {
               onClick={deleteHandler}
               icon={<DeleteOutlined />}
             >
-              USUŃ
+              Usuń
             </Button>
           </div>
           <Row gutter={[20, 20]}>
