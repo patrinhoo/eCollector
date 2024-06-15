@@ -21,8 +21,11 @@ RUN python -m venv /py && \
     apk add --update --no-cache postgresql-client && \
     apk add --update --no-cache --virtual .tmp-deps \
         build-base postgresql-dev musl-dev linux-headers && \
+    apk add --no-cache libffi-dev gobject-introspection cairo-dev pango-dev gdk-pixbuf-dev zlib-dev ttf-dejavu font-noto && \
+    apk add --no-cache --virtual .build-deps gcc g++ libc-dev cairo pango gdk-pixbuf && \
     /py/bin/pip install -r /requirements.txt && \
     apk del .tmp-deps && \
+    apk del .build-deps && \
     adduser --disabled-password --no-create-home app && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/media && \

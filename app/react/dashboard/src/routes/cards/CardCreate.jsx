@@ -332,6 +332,11 @@ export const CardCreate = ({ collapsed }) => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
+                  <Form.Item name='value' label='Wartość'>
+                    <Input placeholder='Wartość' />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
                   <Form.Item name='production_date' label='Data produkcji'>
                     <DatePicker
                       placeholder='Data produkcji'

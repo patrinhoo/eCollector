@@ -54,7 +54,7 @@ export const PendingCardShow = () => {
               className='tw-mr-4'
             >
               <Button type='primary' icon={<EditOutlined />}>
-                UZUPEŁNIJ
+                Uzupełnij
               </Button>
             </Link>
             <Button
@@ -62,7 +62,7 @@ export const PendingCardShow = () => {
               onClick={deleteHandler}
               icon={<DeleteOutlined />}
             >
-              USUŃ
+              Usuń
             </Button>
           </div>
           <Row gutter={[20, 20]}>

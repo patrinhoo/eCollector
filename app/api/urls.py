@@ -17,4 +17,5 @@ urlpatterns = [
     path('user/create', views.CreateUserView.as_view(), name='create'),
     path('user/token', views.CreateTokenView.as_view(), name='token'),
     path('user/me', views.ManageUserView.as_view(), name='me'),
+    path('export/pdf/', views.ExportCardsPDFView.as_view(), name='export_cards_pdf'),
 ]

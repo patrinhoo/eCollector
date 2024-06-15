@@ -8,6 +8,9 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
+from django.views.generic import TemplateView
+from django_weasyprint import WeasyTemplateResponseMixin
+
 from . import models
 from . import serializers
 
@@ -168,3 +171,13 @@ class CardViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class ExportCardsPDFView(WeasyTemplateResponseMixin, TemplateView):
+    template_name = 'cards_pdf.html'
+    pdf_filename = 'cards_collection.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cards'] = models.Card.objects.filter(user=self.request.user)
+        return context
