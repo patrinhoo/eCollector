@@ -184,7 +184,10 @@ class ExportCardsPDFView(WeasyTemplateResponseMixin, views.APIView):
 
     def get(self, request, *args, **kwargs):
         cards = models.Card.objects.filter(user=request.user)
-        context = {'cards': cards}
+        context = {
+            'cards': cards,
+            'user': request.user
+        }
 
         template = get_template(self.template_name)
         html = template.render(context)
