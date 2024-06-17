@@ -12,39 +12,36 @@
       .card {
         border: 1px solid #000;
         margin-bottom: 20px;
-        padding: 10px;
-        page-break-before: always;
       }
-      .card:first-of-type {
-        page-break-before: auto;
+      .header {
+        text-align: center;
       }
-      .image-wrapper{
-        width: 285px;
-        height: 180px;
+      .image-wrapper {
+        width: 171px;
+        height: 108px;
         border: 1px solid #000;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 10px 0px 10px 10px;
       }
       .card-details img {
-        width: 285px;
-        height: 180px;
-        margin-right: 20px;
+        width: 171px;
+        height: 108px;
       }
       .card-details {
         display: flex;
       }
       .card-text {
-        margin-right: 20px;
+        flex: 1;
+        margin-left: 10px;
+        margin-right: 5px;
         font-size: 10px;
-      }
-      .header {
-        font-size: 12px;
       }
     </style>
   </head>
   <body>
-    <h1>Moja Kolekcja Kart</h1>
+    <h1 class="header">Moja Kolekcja Kart</h1>
     {% for card in cards %}
     <div class="card">
       <div class="card-details">
@@ -57,72 +54,87 @@
           <img src="{{ card.rewers.url }}" alt="Rewers" />
         </div>
         {% endif %}
-      </div>
-      <div class="card-details">
         <div class="card-text">
-          <p class="header"><strong>INFORMACJE PODSTAWOWE</strong></p>
           <p><strong>Nazwa:</strong> {{ card.name }}</p>
           <p><strong>Typ:</strong> {{ card.type|translate_type }}</p>
           <p><strong>Status:</strong> {{ card.status|translate_status }}</p>
-        </div>
-        <div class="card-text">
-          <p class="header"><strong>INFORMACJE DODATKOWE</strong></p>
+          {% if user.catalog_number %}
           <p>
             <strong>Numer katalogowy:</strong>
             {{ card.catalog_number|default:"-" }}
           </p>
+          {% endif %} {% if user.printed_amount %}
           <p><strong>Nakład:</strong> {{ card.printed_amount|default:"-" }}</p>
+          {% endif %} {% if user.nr_of_pulses %}
           <p>
             <strong>Liczba impulsów:</strong>
             {{ card.nr_of_pulses|default:"-" }}
           </p>
+          {% endif %} {% if user.price %}
           <p><strong>Nominał:</strong> {{ card.price|default:"-" }}</p>
+          {% endif %} {% if user.value %}
           <p><strong>Wartość:</strong> {{ card.value|default:"-" }}</p>
+          {% endif %} {% if user.production_date %}
           <p>
             <strong>Data produkcji:</strong>
             {{ card.production_date|date:"Y-m-d"|default:"-" }}
           </p>
+          {% endif %} {% if user.expiration_date %}
           <p>
             <strong>Data ważności:</strong>
             {{ card.expiration_date|date:"Y-m-d"|default:"-" }}
           </p>
+          {% endif %} {% if user.series %}
           <p><strong>Seria:</strong> {{ card.series|default:"-" }}</p>
+          {% endif %} {% if user.prefix %}
           <p><strong>Prefix:</strong> {{ card.prefix|default:"-" }}</p>
+          {% endif %} {% if user.producer %}
           <p><strong>Producent:</strong> {{ card.producer|default:"-" }}</p>
+          {% endif %} {% if user.material_type %}
           <p>
             <strong>Rodzaj materiału:</strong>
             {{ card.material_type|translate_material_type|default:"-" }}
           </p>
+          {% endif %} {% if user.shape %}
           <p>
             <strong>Kształt:</strong>
             {{ card.shape|translate_shape|default:"-" }}
           </p>
+          {% endif %} {% if user.surface_type %}
           <p>
             <strong>Rodzaj powierzchni:</strong>
             {{ card.surface_type|translate_surface_type|default:"-" }}
           </p>
+          {% endif %} {% if user.number_printype %}
           <p>
             <strong>Sposób naniesienia numeru:</strong>
             {{ card.number_printype|translate_number_printype|default:"-" }}
           </p>
+          {% endif %} {% if user.number_type %}
           <p>
             <strong>Rodzaj numeru:</strong>
             {{ card.number_type|default:"-" }}
           </p>
+          {% endif %} {% if user.magnetic_stripe_width %}
           <p>
             <strong>Szerokość paska magnetycznego:</strong>
             {{ card.magnetic_stripe_width|default:"-" }}
           </p>
+          {% endif %} {% if user.gsm_operator %}
           <p>
             <strong>Sieć komórkowa:</strong>
             {{ card.gsm_operator|translate_gsm_operator|default:"-" }}
           </p>
+          {% endif %} {% if user.chip_type %}
           <p>
             <strong>Rodzaj chipa:</strong>
             {{ card.chip_type|translate_chip_type|default:"-" }}
           </p>
+          {% endif %} {% if user.publisher %}
           <p><strong>Wydawca:</strong> {{ card.publisher|default:"-" }}</p>
+          {% endif %} {% if user.comment %}
           <p><strong>Komentarz:</strong> {{ card.comment|default:"-" }}</p>
+          {% endif %}
         </div>
       </div>
     </div>
