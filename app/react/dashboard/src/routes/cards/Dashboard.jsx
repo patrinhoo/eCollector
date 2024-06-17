@@ -1,13 +1,14 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Table, Button, Image, Dropdown } from 'antd';
+import { Table, Button, Image, Dropdown, Spin } from 'antd';
 import {
   DownloadOutlined,
   PlusOutlined,
   CloseOutlined,
   FilterOutlined,
   FilePdfOutlined,
+  LoadingOutlined,
 } from '@ant-design/icons';
 
 import { cardsService } from '../../api/cardsService';
@@ -107,6 +108,8 @@ export const Dashboard = () => {
   const [isFiltered, setIsFiltered] = useState(false);
 
   const [columns, setColumns] = useState(defaultColumns.concat(actionColumns));
+
+  const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
     if (!settingsState?.isLoaded || settingsState?.error) {
@@ -368,19 +371,29 @@ export const Dashboard = () => {
   }, []);
 
   const exportHandler = useCallback(() => {
+    setIsExporting(true);
+
     cardsService
       .export()
       .then(() => {
+        setIsExporting(false);
         message.success('Pomyślnie eksportowano karty!');
       })
       .catch((err) => {
+        setIsExporting(false);
         message.error('Podczas eksportowania kart wystąpił błąd!');
         console.log(err);
       });
-  }, []);
+  }, [setIsExporting]);
 
   return (
     <div className='tw-p-8'>
+      <Spin
+        spinning={isExporting}
+        indicator={<LoadingOutlined spin />}
+        size='large'
+        fullscreen
+      />
       <div className='tw-mb-8 tw-text-yellow-medium tw-text-3xl tw-font-semibold tw-italic tw-text-center'>
         Moje karty
       </div>
