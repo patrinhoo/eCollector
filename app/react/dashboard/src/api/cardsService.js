@@ -76,3 +76,36 @@ cardsService.delete = (cardId) => {
       });
   });
 };
+
+cardsService.export = () => {
+  const { headers } = getAuthHeaders();
+
+  const url = `/api/export/pdf/`;
+
+  return new Promise((resolve, reject) => {
+    axios({
+      url,
+      method: 'GET',
+      headers: headers,
+      responseType: 'blob',
+    })
+      .then((response) => {
+        if (response?.status !== 200) {
+          reject(response);
+        }
+
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'cards_collection.pdf');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

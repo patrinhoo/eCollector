@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics, authentication, permissions, status
+from rest_framework import viewsets, generics, authentication, permissions, status, views
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.authentication import TokenAuthentication
@@ -8,8 +8,11 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
-from django.views.generic import TemplateView
+from django.template.loader import get_template
+from django.http import HttpResponse
+
 from django_weasyprint import WeasyTemplateResponseMixin
+from weasyprint import HTML
 
 from . import models
 from . import serializers
@@ -173,11 +176,22 @@ class CardViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class ExportCardsPDFView(WeasyTemplateResponseMixin, TemplateView):
+class ExportCardsPDFView(WeasyTemplateResponseMixin, views.APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     template_name = 'cards_pdf.html'
     pdf_filename = 'cards_collection.pdf'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['cards'] = models.Card.objects.filter(user=self.request.user)
-        return context
+    def get(self, request, *args, **kwargs):
+        cards = models.Card.objects.filter(user=request.user)
+        context = {'cards': cards}
+
+        template = get_template(self.template_name)
+        html = template.render(context)
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{self.pdf_filename}"'
+
+        HTML(string=html).write_pdf(response)
+
+        return response

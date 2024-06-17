@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { Table, Button, Image, Dropdown } from 'antd';
 import {
   DownloadOutlined,
-  UploadOutlined,
   PlusOutlined,
   CloseOutlined,
   FilterOutlined,
   FilePdfOutlined,
 } from '@ant-design/icons';
 
+import { cardsService } from '../../api/cardsService';
 import { useCardsList } from '../../api/useCardsList';
 import { getCardTypeName } from '../../utils/getCardTypeName';
 import { getCardStatusName } from '../../utils/getCardStatusName';
@@ -367,49 +367,36 @@ export const Dashboard = () => {
     setIsModalVisible(false);
   }, []);
 
+  const exportHandler = useCallback(() => {
+    cardsService
+      .export()
+      .then(() => {
+        message.success('Pomyślnie eksportowano karty!');
+      })
+      .catch((err) => {
+        message.error('Podczas eksportowania kart wystąpił błąd!');
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className='tw-p-8'>
       <div className='tw-mb-8 tw-text-yellow-medium tw-text-3xl tw-font-semibold tw-italic tw-text-center'>
         Moje karty
       </div>
       <div className='tw-flex tw-justify-end tw-mb-4 tw-gap-4'>
-        {/* <Dropdown
-          menu={{
-            items: [
-              {
-                key: '1',
-                label: (
-                  <div>
-                    <span className='tw-mr-2'>
-                      <FilePdfOutlined />
-                    </span>
-                    Z PDF
-                  </div>
-                ),
-              },
-            ],
-          }}
-          placement='bottom'
-        >
-          <Button type='primary' icon={<UploadOutlined />}>
-            Importuj
-          </Button>
-        </Dropdown> */}
-
         <Dropdown
           menu={{
             items: [
               {
                 key: '1',
                 label: (
-                  <a href='/api/export/pdf' target='_blank'>
-                    <div>
-                      <span className='tw-mr-2'>
-                        <FilePdfOutlined />
-                      </span>
-                      Do PDF
-                    </div>
-                  </a>
+                  <div onClick={exportHandler}>
+                    <span className='tw-mr-2'>
+                      <FilePdfOutlined />
+                    </span>
+                    Do PDF
+                  </div>
                 ),
               },
             ],
